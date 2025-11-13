@@ -22,7 +22,7 @@ import AdminLayout from "../admin/AdminLayout";
 import Dashboard from "../admin/Dashboard";
 import Users from "../admin/Users";
 import Properties from "../admin/Properties";
-
+import AdminContacts from "../admin/contacts"
 export const routers = createBrowserRouter([
   {
     path: "/",
@@ -112,6 +112,7 @@ export const routers = createBrowserRouter([
         path: "properties",
         element: <Properties />,
       },
+      {path: "contacts", element: <AdminContacts />}
     ],
   },
 ]);

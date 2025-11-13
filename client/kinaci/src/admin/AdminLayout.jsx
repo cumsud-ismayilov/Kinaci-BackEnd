@@ -67,6 +67,12 @@ function AdminLayout() {
               </ListItemIcon>
               <ListItemText primary="Properties" />
             </ListItem>
+            <ListItem button component={Link} to="/admin/contacts">
+              <ListItemIcon>
+                <DashboardIcon /> {/* İstəsən fərqli icon qoy */}
+              </ListItemIcon>
+              <ListItemText primary="Contacts" />
+            </ListItem>
           </List>
         </Drawer>
 

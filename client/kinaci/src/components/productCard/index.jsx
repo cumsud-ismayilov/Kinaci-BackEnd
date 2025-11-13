@@ -17,18 +17,27 @@ const { favorites, setFavorites } = useContext(FavoriteContext);
   const navigate = useNavigate();
 
 
-  const toggleFavorite = () => {
-    if (!id || !title) return; // boşu əlavə etmə
-    let updatedFavs = [...favorites];
-    if (isFav) {
-      updatedFavs = updatedFavs.filter((item) => item.id !== id);
-       toast.info(`favorilərdən çıxarıldı`);
-    } else {
-      updatedFavs.push({ id, title });
-      toast.success(`favorilərə əlavə olundu`);
-    }
-    setFavorites(updatedFavs);
-  };
+ const toggleFavorite = () => {
+  const userData = localStorage.getItem("user");
+  const user = userData ? JSON.parse(userData) : null; // null yoxlaması
+
+  if (!user || !user._id) { // user məlumatı tam deyilsə də dayandır
+    toast.warning("Favoritlərə əlavə etmək üçün daxil olun!");
+    // openLoginModal(); // əgər modal varsa aç
+    return;
+  }
+
+  let updatedFavs = [...favorites];
+  if (isFav) {
+    updatedFavs = updatedFavs.filter((item) => item.id !== id);
+    toast.info("Favorilərdən çıxarıldı");
+  } else {
+    updatedFavs.push({ id, title });
+    toast.success("Favorilərə əlavə olundu");
+  }
+  setFavorites(updatedFavs);
+};
+
 
   return (
     <div className="bg-[#fff] rounded-[7px] relative">
