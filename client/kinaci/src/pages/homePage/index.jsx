@@ -28,17 +28,16 @@ function HomePage() {
   //     }
   //   })();
   // }, [up]);
-useEffect(() => {
-  (async () => {
-    try {
-      const data = await getAllCompanies();
-      setProducts(data);
-    } catch (err) {
-      console.error(err);
-    }
-  })();
-}, []);
-
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await getAllCompanies();
+        setProducts(data);
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     if (activeFilter === "Hamısı") {

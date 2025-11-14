@@ -12,6 +12,7 @@ import WhatsapIcon from "../../icons/whatsapIcon";
 import TelegramIcon from "../../icons/telegramIcon";
 import FaceBook from "../../icons/faceBook";
 import Instagram from "../../icons/instagram";
+import HomeIcon from "../../icons/homeicon2";
 import { FavoriteContext } from "../../context/favoriteContext";
 import { toast } from "react-toastify";
 import BackGroundSec from "../../components/backgroundSec";
@@ -147,7 +148,9 @@ function ProductCardDetail() {
                     </p>
                   </div>
                   <div className="flex flex-col gap-[13px]">
-                    <p className="text-[14px]">Mərtəbə: {singlePro.floor ?? "-"}</p>
+                    <p className="text-[14px]">
+                      Mərtəbə: {singlePro.floor ?? "-"}
+                    </p>
                     <p className="text-[14px]">
                       Əməliyyat növü: {singlePro.transactionType}
                     </p>
@@ -172,11 +175,10 @@ function ProductCardDetail() {
                 <h4 className="text-[20px]">İnfrastruktur</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                   {singlePro?.infrastructure?.map((item, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center gap-2 p-2"
-                    >
-                      <span className="text-[#052841] text-[14px]">- {item}</span>
+                    <div key={index} className="flex items-center gap-2 p-2">
+                      <span className="text-[#052841] text-[14px]">
+                        - {item}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -338,6 +340,32 @@ function ProductCardDetail() {
                   </p>
                 </Link>
               </div>
+            </div>
+            <div className="bg-[#fff] p-[10px_14px] m-[10px_0px] rounded-[7px] border-1 border-[#ED6B2C]">
+              <div className="flex items-center gap-[4px]">
+                <HomeIcon />
+                <h3 className="text-[15px]">Digər ərazilərdəki əmlaklar</h3>
+              </div>
+              <ul className="text-[13px] mt-[7px] flex flex-col gap-1">
+                <li>
+                  <Link to="/possessions?city=İstanbul">İstanbul</Link>
+                </li>
+                <li>
+                  <Link to="/possessions?city=Kuşadası">Kuşadası</Link>
+                </li>
+                <li>
+                  <Link to="/possessions?city=Alanya">Alanya</Link>
+                </li>
+                <li>
+                  <Link to="/possessions?city=Antalya">Antalya</Link>
+                </li>
+                <li>
+                  <Link to="/possessions?city=Kıbrıs">Kıbrıs</Link>
+                </li>
+                <li>
+                  <Link to="/possessions?city=Bodrum">Bodrum</Link>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
