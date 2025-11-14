@@ -4,6 +4,7 @@ import BankAccountSec from "./bankAccountSec";
 import GoogleMapSec from "./googleMapSec";
 import OfficeSec from "./officeSec";
 import Slider from "./slider";
+import PrintSec from "../../components/prinntSec";
 
 function Contact() {
   return (
@@ -26,6 +27,7 @@ function Contact() {
         <div className="bg-[#E9F3F9] p-[3rem]">
           <BankAccountSec />
         </div>
+        <PrintSec/>
       </div>
     </div>
   );

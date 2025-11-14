@@ -10,6 +10,30 @@ export const getAllCompanies = async () => {
   return res.data
 }
 
+export const getAllNews = async () => {
+
+  const res = await api.get("/news");
+  if (!res.data) {
+    throw new Error("Get All News fetch Error");
+  }
+  console.log("All Fetch bitdi", res.data);
+  return res.data
+}
+
+export const getNewsById = async (id) => {
+  try {
+    const res = await api.get(`/news/${id}`); // yalnız kliklənən məhsulu çəkir
+    if (!res.data) {
+      throw new Error("News fetch error");
+    }
+    console.log("Single News Fetch:", res.data);
+    return res.data;
+  } catch (error) {
+    console.error("getNewsById Error:", error);
+    throw error;
+  }
+};
+
 
 
 
