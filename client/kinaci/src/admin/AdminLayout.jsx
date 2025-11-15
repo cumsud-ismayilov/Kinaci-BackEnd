@@ -73,6 +73,13 @@ function AdminLayout() {
               </ListItemIcon>
               <ListItemText primary="Contacts" />
             </ListItem>
+            <ListItem button component={Link} to="/admin/comments">
+              <ListItemIcon>
+                <DashboardIcon />{" "}
+                {/* Daha uyğun icon seçə bilərsən, məsələn CommentIcon */}
+              </ListItemIcon>
+              <ListItemText primary="Comments" />
+            </ListItem>
           </List>
         </Drawer>
 
