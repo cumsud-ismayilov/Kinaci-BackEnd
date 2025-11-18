@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { getNewsById } from "../../services";
 import UserIcon from "../../icons/userIcon";
 import { User } from "lucide-react";
@@ -9,8 +9,6 @@ import PrintSec from "../../components/prinntSec";
 
 function NewsDetail() {
   const { id } = useParams();
-
-  // ✅ Hook-lar hər zaman top-level-də
   const [singlePro, setSinglePro] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,7 +18,6 @@ function NewsDetail() {
   const [email, setEmail] = useState("");
   const [commentText, setCommentText] = useState("");
 
-  // Xəbəri gətir
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -35,7 +32,6 @@ function NewsDetail() {
     fetchProduct();
   }, [id]);
 
-  // Şərhləri gətir
   useEffect(() => {
     const fetchComments = async () => {
       try {
@@ -49,34 +45,27 @@ function NewsDetail() {
     fetchComments();
   }, [id]);
 
-  // Şərh göndərmə
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newComment = { newsId: id, name, email, text: commentText };
 
-  const newComment = { newsId: id, name, email, text: commentText };
+    try {
+      const res = await fetch("http://localhost:5000/comments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newComment),
+      });
 
-  try {
-    const res = await fetch("http://localhost:5000/comments", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newComment),
-    });
+      const savedComment = await res.json();
+      setComments((prev) => [...prev, savedComment]);
+      setName("");
+      setEmail("");
+      setCommentText("");
+    } catch (err) {
+      console.log("Şərh göndərilə bilmədi:", err);
+    }
+  };
 
-    const savedComment = await res.json(); // server-dən gələn comment
-
-    // Lokal state-i dərhal yenilə
-    setComments((prev) => [...prev, savedComment]);
-
-    setName("");
-    setEmail("");
-    setCommentText("");
-  } catch (err) {
-    console.log("Şərh göndərilə bilmədi:", err);
-  }
-};
-
-
-  // Render hissəsi
   if (loading) return <p className="p-6">Yüklənir...</p>;
   if (error) return <p className="p-6 text-red-500">Xəta: {error}</p>;
   if (!singlePro) return <p className="p-6">Xəbər tapılmadı</p>;
@@ -89,41 +78,47 @@ const handleSubmit = async (e) => {
           <SearchFilter />
         </div>
       </div>
-      <div className="max-w-5xl mx-auto py-10">
-        <h1 className="text-3xl font-bold mb-2">{singlePro.title2}</h1>
-        <p className="text-[13px] flex items-center gap-[8px]">
-          <UserIcon /> Yönetici |<span>Lüks Ev Villa</span>
+
+      <div className="max-w-5xl mx-auto py-10 px-4 sm:px-0 mt-12 sm:mt-0">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2">{singlePro.title2}</h1>
+
+        <p className="text-[13px] flex flex-col sm:flex-row sm:items-center gap-[6px] sm:gap-[8px]">
+          <span className="flex items-center gap-1">
+            <UserIcon /> Yönetici
+          </span>
+          <span>Lüks Ev Villa</span>
           <span>
             {singlePro.newsMonth} {singlePro.newsDay},{singlePro.newsYear}{" "}
             {singlePro.newsTime}
           </span>
         </p>
-        <div className="m-[28px]">
+
+        <div className="my-7 sm:my-[28px]">
           <img
             src={singlePro.newsImg}
             alt={singlePro.title2}
-            className="w-[422px] h-[388px] object-cover shadow mx-auto block"
+            className="w-full sm:w-[422px] h-56 sm:h-[388px] object-cover shadow mx-auto block"
           />
         </div>
 
-        <p className="text-[15px] text-[#052841] mt-4">{singlePro.content}</p>
+        <p className="text-[14px] sm:text-[15px] text-[#052841] mt-4">{singlePro.content}</p>
 
-        <div className="my-5 py-10 border-t border-b border-[#ececec] flex justify-center gap-[10px]">
+        <div className="my-5 py-6 sm:py-10 border-t border-b border-[#ececec] flex flex-wrap justify-center gap-2 sm:gap-[10px]">
           <span className="p-2.5 bg-[#fef4f3] rounded-[30px]">Kiralık</span>
           <span className="p-2.5 bg-[#fef4f3] rounded-[30px]">Ev</span>
           <span className="p-2.5 bg-[#fef4f3] rounded-[30px]">Villa</span>
         </div>
 
-        <div className="flex items-center gap-[10px]">
-          <User />
-          <div className="text-[14px]">
+        <div className="flex items-center gap-2 sm:gap-[10px] mb-6">
+          <User className="w-5 h-5 sm:w-6 sm:h-6" />
+          <div className="text-[13px] sm:text-[14px]">
             <p className="font-semibold">Yönetici</p>
             <p>{singlePro.title3}</p>
           </div>
         </div>
 
         {/* Şərhlər */}
-        <div className="my-5 py-10 border-t border-b border-[#ececec]">
+        <div className="my-5 py-6 sm:py-10 border-t border-b border-[#ececec]">
           {comments.length === 0 ? (
             <p className="font-semibold text-center">Hələ şərh yoxdur</p>
           ) : (
@@ -138,11 +133,11 @@ const handleSubmit = async (e) => {
 
         {/* Şərh formu */}
         <div>
-          <h6>Şərh yazın</h6>
-          <form onSubmit={handleSubmit} className="pt-[11px]">
-            <div className="grid grid-cols-2 gap-[10px]">
+          <h6 className="text-[14px] sm:text-[16px] mb-2">Şərh yazın</h6>
+          <form onSubmit={handleSubmit} className="pt-[10px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label htmlFor="name" className="block text-[14px] pb-[5px]">
+                <label htmlFor="name" className="block text-[13px] sm:text-[14px] pb-[5px]">
                   Ad
                 </label>
                 <input
@@ -150,12 +145,12 @@ const handleSubmit = async (e) => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Ad daxil edin"
-                  className="p-[6px_12px] w-full text-[#212529] border border-[#dee2e6] rounded-[6px]"
+                  className="p-2 sm:p-[6px_12px] w-full text-[#212529] border border-[#dee2e6] rounded-[6px]"
                   required
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-[14px] pb-[5px]">
+                <label htmlFor="email" className="block text-[13px] sm:text-[14px] pb-[5px]">
                   E-mail
                 </label>
                 <input
@@ -163,7 +158,7 @@ const handleSubmit = async (e) => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="E-mail daxil edin"
-                  className="p-[6px_12px] w-full text-[#212529] border border-[#dee2e6] rounded-[6px]"
+                  className="p-2 sm:p-[6px_12px] w-full text-[#212529] border border-[#dee2e6] rounded-[6px]"
                   required
                 />
               </div>
@@ -172,22 +167,23 @@ const handleSubmit = async (e) => {
             <textarea
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
-              rows="5"
+              rows="4"
               placeholder="Şərhinizi yazın..."
-              className="w-full border border-[#dee2e6] p-[6px_12px] mt-[24px] mb-[24px] rounded-[6px]"
+              className="w-full border border-[#dee2e6] p-2 sm:p-[6px_12px] mt-4 mb-6 rounded-[6px]"
               required
             ></textarea>
 
             <button
               type="submit"
-              className="mb-[24px] bg-[#2582c1] text-[#fff] rounded-[6px] text-[14px] p-[6px_12px] cursor-pointer"
+              className="mb-6 bg-[#2582c1] text-[#fff] rounded-[6px] text-[14px] p-2 sm:p-[6px_12px] w-full sm:w-auto"
             >
               Şərh göndərin
             </button>
           </form>
         </div>
       </div>
-      <PrintSec/>
+
+      <PrintSec />
     </>
   );
 }

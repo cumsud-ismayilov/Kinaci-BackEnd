@@ -48,28 +48,43 @@ function InputSec() {
   };
 
   return (
-    <section className="inputSec bg-[#F4F9FC] p-[50px_0px]">
+    <section className="inputSec bg-[#F4F9FC] py-12 px-4">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-6">
-        <div className="bg-[#fff] rounded-[7px] h-full">
-          <form onSubmit={handleSubmit} className="p-[24px]">
-            <div className="my-3">
-              <h1 className="mb-[8px] text-[26px] font-semibold">
+        {/* --- Form --- */}
+        <div className="bg-white rounded-[7px] p-6 md:p-[24px] h-full">
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <h1 className="text-2xl md:text-[26px] font-semibold mb-2">
                 Bilgi Almak İstiyorum
               </h1>
-              <p className="text-[14px]">Lütfen formu doldurun</p>
-              <div className="form-group mt-[24px] flex flex-col gap-[9px]">
-                <label htmlFor="ad" className="mb-2 block text-[14px]">
-                  Ad &amp; Soyad
+              <p className="text-sm md:text-[14px] text-gray-600">
+                Lütfen formu doldurun
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3 md:gap-[9px]">
+              <div>
+                <label
+                  htmlFor="ad"
+                  className="block text-sm md:text-[14px] mb-1"
+                >
+                  Ad & Soyad
                 </label>
                 <input
                   type="text"
                   id="ad"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="form-control border-1 border-[#dee2e6] p-[10px] text-[14px] rounded-[6px] w-full text-[#212529] outline-none"
                   placeholder="Adınızı ve Soyadınız girin"
+                  className="w-full border border-[#dee2e6] rounded-[6px] p-3 text-sm md:text-[14px] outline-none focus:ring-2 focus:ring-orange-400"
                 />
-                <label htmlFor="phone" className="mb-2 block text-[14px]">
+              </div>
+
+              <div>
+                <label
+                  htmlFor="phone"
+                  className="block text-sm md:text-[14px] mb-1"
+                >
                   Telefon
                 </label>
                 <input
@@ -78,9 +93,15 @@ function InputSec() {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="Telefon numaranızı girin"
-                  className="form-control border-1 border-[#dee2e6] p-[10px] text-[14px] rounded-[6px] w-full text-[#212529] outline-none"
+                  className="w-full border border-[#dee2e6] rounded-[6px] p-3 text-sm md:text-[14px] outline-none focus:ring-2 focus:ring-orange-400"
                 />
-                <label className="mb-2 block text-[14px]" htmlFor="email">
+              </div>
+
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm md:text-[14px] mb-1"
+                >
                   E-Mail
                 </label>
                 <input
@@ -88,22 +109,32 @@ function InputSec() {
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="form-control border-1 border-[#dee2e6] p-[10px] text-[14px] rounded-[6px] w-full text-[#212529] outline-none"
                   placeholder="E-Mail adresinizi girin"
+                  className="w-full border border-[#dee2e6] rounded-[6px] p-3 text-sm md:text-[14px] outline-none focus:ring-2 focus:ring-orange-400"
                 />
               </div>
-              <button type="submit" className="p-[15px] rounded-[15px] m-[20px_0px] w-full bg-[#ED6B2C] text-white cursor-pointer">
-                Saxla və Göndər
-              </button>
             </div>
+
+            <button
+              type="submit"
+              className="mt-4 md:mt-[20px] w-full bg-[#ED6B2C] hover:bg-orange-600 text-white text-sm md:text-base font-medium py-3 rounded-[15px] transition"
+            >
+              Saxla və Göndər
+            </button>
           </form>
         </div>
-        <div className="550px relative">
-          <img src={InputSecImg} alt="KinaciImg" />
+
+        {/* --- Image --- */}
+        <div className="relative w-full h-[250px] md:h-auto">
           <img
-            className="absolute bottom-[14px] right-[-14px] w-[158px] h-[50px]"
+            src={InputSecImg}
+            alt="KinaciImg"
+            className="w-full h-full object-cover rounded-[7px]"
+          />
+          <img
             src={KinaciLogo}
             alt="KinaciLogo"
+            className="absolute bottom-2 right-2 w-36 h-12 md:w-[158px] md:h-[50px]"
           />
         </div>
       </div>

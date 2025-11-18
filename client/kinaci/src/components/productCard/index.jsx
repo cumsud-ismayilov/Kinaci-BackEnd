@@ -40,8 +40,8 @@ const { favorites, setFavorites } = useContext(FavoriteContext);
 
 
   return (
-    <div className="bg-[#fff] rounded-[7px] relative">
-      <div className="h-[190px] cursor-pointer" onClick={() => navigate(`/product/${id}`)}>
+    <div className="bg-[#fff] rounded-[7px] relative max-w-[480px] mx-auto w-full sm:w-full">
+      <div className="h-[240px] md:h-[190px] cursor-pointer" onClick={() => navigate(`/product/${id}`)}>
         <CardSwiper {...images} />
       </div>
       <button onClick={toggleFavorite} className="absolute top-2 left-2 z-50 cursor-pointer">
@@ -62,14 +62,14 @@ const { favorites, setFavorites } = useContext(FavoriteContext);
           <button className="bg-[#2582C1] text-[#fff] p-[6px_9px] rounded-[6px] text-[13px]">{price}</button>
         </div>
         <div className="flex justify-between">
-          <button className="text-[#212529] border border-[#212529] rounded-[5px] p-[6px_32px] text-[15px] cursor-pointer">Hızlı iletişim</button>
-          <button className="text-[#ED6B2C] border border-[#ED6B2C] rounded-[5px] p-[6px_40px] text-[15px] cursor-pointer" onClick={() => navigate(`/product/${id}`)}>Detaylar</button>
+          <button className="text-[#212529] border border-[#212529] rounded-[5px] p-[6px_32px] text-[15px] cursor-pointer max-sm:w-[48%] max-sm:p-[10px]">Hızlı iletişim</button>
+          <button className="text-[#ED6B2C] border border-[#ED6B2C] rounded-[5px] p-[6px_40px] text-[15px] cursor-pointer  max-sm:w-[48%] max-sm:p-[10px]" onClick={() => navigate(`/product/${id}`)}>Detaylar</button>
         </div>
       </div>
     </div>
   );
 }
 
-// {singlePro.baths ?? " -"}
+
 
 export default ProductCard;

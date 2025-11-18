@@ -46,39 +46,43 @@ function Blog() {
         </div>
       </div>
 
-      <div className="pt-[2rem]">
-        <div className="max-w-4xl mx-auto mb-[1rem]">
-          <h1 className="font-semibold text-[25px]">Blog</h1>
-        </div>
+<div className="pt-[6rem] lg:pt-[2rem] px-[11px] lg:px-0">
+  <div className="max-w-4xl mx-auto mb-[1rem]">
+    <h1 className="font-semibold text-[25px]">Blog</h1>
+  </div>
 
-        <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(200px,3fr)_minmax(250px,1fr)] gap-6">
-          <div className="flex flex-col gap-6 w-[590px]">
-            {paginatedNews?.map((item) => (
-              <NewsCard key={item.id} {...item} />
-            ))}
-          </div>
+  <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(200px,3fr)_minmax(250px,1fr)] gap-6">
+    {/* Main News Cards */}
+    <div className="flex flex-col gap-6 w-full lg:w-[590px]">
+      {paginatedNews?.map((item) => (
+        <NewsCard key={item.id} {...item} />
+      ))}
+    </div>
 
-          <div>
-            <div className="shadow-[0_8px_24px_#959da533] p-[20px]">
-              <input
-                type="text"
-                className="border border-[#dee2e6] outline-none text-[#212529] p-[6px_12px] text-[13px] w-full"
-                placeholder="Nə axtarırsınız?"
-                onChange={(e) => {
-                  setSearchTerm(e.target.value);
-                  setCurrentPage(1); 
-                }}
-              />
-            </div>
-            <div className="shadow-[0_8px_24px_#959da533] p-[20px]">
-              <h4>Son Yazılar</h4>
-              {news?.map((item) => (
-                <NewSec key={item.id} {...item} />
-              ))}
-            </div>
-          </div>
-        </div>
+    {/* Sidebar */}
+    <div className="w-full lg:w-auto">
+      <div className="shadow-[0_8px_24px_#959da533] p-[20px] mb-6 lg:mb-0">
+        <input
+          type="text"
+          className="border border-[#dee2e6] outline-none text-[#212529] p-[6px_12px] text-[13px] w-full"
+          placeholder="Nə axtarırsınız?"
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setCurrentPage(1); 
+          }}
+        />
       </div>
+      <div className="shadow-[0_8px_24px_#959da533] p-[20px]">
+        <h4>Son Yazılar</h4>
+        {news?.map((item) => (
+          <NewSec key={item.id} {...item} />
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}

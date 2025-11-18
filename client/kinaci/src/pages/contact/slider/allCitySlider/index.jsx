@@ -32,25 +32,30 @@ function AllCitySlider() {
   };
 
   return (
-    <Swiper
-      slidesPerView={4}
-      spaceBetween={15}
-      autoplay={{ delay: 2500, disableOnInteraction: false }}
-      navigation={true}
-      modules={[Autoplay, Navigation]}
-      className="mySwiper myCustomSwiper"
-    >
-      {cities.map((city, idx) => (
-        <SwiperSlide key={idx}>
-          <img
-            src={city.img}
-            alt={city.name}
-            className="cursor-pointer rounded-[10px] shadow-md hover:scale-105 transition-transform"
-            onClick={() => handleClick(city.name)}
-          />
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <div className="px-[11px] lg:px-0">
+      <Swiper
+        slidesPerView={3} // mobil üçün 3 slide
+        spaceBetween={10}
+        breakpoints={{
+          1024: { slidesPerView: 4, spaceBetween: 15 }, // desktop ≥1024px
+        }}
+        autoplay={{ delay: 2500, disableOnInteraction: false }}
+        navigation={true}
+        modules={[Autoplay, Navigation]}
+        className="mySwiper myCustomSwiper"
+      >
+        {cities.map((city, idx) => (
+          <SwiperSlide key={idx}>
+            <img
+              src={city.img}
+              alt={city.name}
+              className="cursor-pointer rounded-[10px] shadow-md hover:scale-105 transition-transform w-full h-[100px] sm:h-[120px] md:h-[140px] lg:h-[180px] object-cover"
+              onClick={() => handleClick(city.name)}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 }
 

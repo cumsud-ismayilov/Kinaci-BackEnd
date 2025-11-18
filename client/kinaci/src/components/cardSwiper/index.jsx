@@ -6,7 +6,7 @@ import "swiper/css/pagination";
 
 const CardSwiper = ({image1,image2}) => {
   return (
-    <div className="w-full h-full rounded-xl overflow-hidden shadow-lg object-cover">
+    <div className="w-full h-full  rounded-[7px] overflow-hidden shadow-lg object-cover">
       <Swiper
         loop={true}
         autoplay={{

@@ -60,7 +60,7 @@ export default function SearchSection({ className = "" }) {
   };
 
   return (
-    <section className={`max-w-5xl mx-auto  ${className}`}>
+    <section className={`max-w-5xl mx-auto px-[11px] lg:px-0  ${className}`}>
       <div className="container ">
         {/* Tabs */}
         <div className="flex justify-between w-full text-sm ">
@@ -86,7 +86,7 @@ export default function SearchSection({ className = "" }) {
               }}
             ></div>
           </div>
-          <div className="my-auto relative z-[999]">
+          <div className="my-auto relative z-[999] hidden sm:flex">
             <button className="text-[#fff] bg-[#0D9488] p-[6px_12px] rounded-[6px]"><Link to="/onlineTour">Bilik Turuna başla</Link></button>
             <button className="text-[#fff] bg-[#2563EB] p-[6px_12px] rounded-[6px] ml-[6px]"><Link>Axtarış tələb edin</Link></button>
           </div>
