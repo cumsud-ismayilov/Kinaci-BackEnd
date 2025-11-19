@@ -141,27 +141,30 @@ function soldPossessions() {
           <SearchFilter />
         </div>
       </div>
-      <div className="bg-[#F7F7F7] pt-[3rem]">
+      <div className="bg-[#F7F7F7] pt-[6rem] lg:pt-[3rem] px-[11px] lg:px-0">
         <div className="max-w-5xl mx-auto grid lg:grid-cols-2 pb-[25px]">
           <h1 className="text-2xl font-bold">Türkiye'de Gayrimenkul</h1>
-          <div className="flex gap-3 justify-end items-center">
-            <button
-              className={`p-2 rounded-md ${
-                view === "grid" ? "bg-orange-500 text-white" : "bg-gray-200"
-              }`}
-              onClick={() => setView("grid")}
-            >
-              <FaThLarge />
-            </button>
-            <button
-              className={`p-2 rounded-md ${
-                view === "list" ? "bg-orange-500 text-white" : "bg-gray-200"
-              }`}
-              onClick={() => setView("list")}
-            >
-              <FaList />
-            </button>
-            <div className="flex items-baseline gap-[20px]">
+          <div className="flex flex-col sm:flex-row gap-3 justify-end items-start sm:items-center">
+            <div className="md:flex gap-2 hidden">
+              <button
+                className={`p-2 rounded-md ${
+                  view === "grid" ? "bg-orange-500 text-white" : "bg-gray-200"
+                }`}
+                onClick={() => setView("grid")}
+              >
+                <FaThLarge />
+              </button>
+              <button
+                className={`p-2 rounded-md ${
+                  view === "list" ? "bg-orange-500 text-white" : "bg-gray-200"
+                }`}
+                onClick={() => setView("list")}
+              >
+                <FaList />
+              </button>
+            </div>
+
+            <div className="flex items-baseline gap-2 sm:gap-5 mt-2 sm:mt-0">
               <p className="text-[13px]">Nəticələri filtirləyin</p>
               <select
                 className="text-[13px] border-none rounded-[7px] bg-[#fff]"

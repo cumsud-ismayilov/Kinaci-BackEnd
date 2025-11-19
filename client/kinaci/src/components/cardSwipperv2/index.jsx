@@ -15,7 +15,7 @@ function CardSwipperv2({item}) {
     imagesObj.image5,
   ];
   return (
-     <div className="w-full h-full rounded-xl overflow-hidden shadow-lg object-cover">
+     <div className="w-full h-full rounded-[7px] overflow-hidden shadow-lg object-cover">
       <Swiper
         loop={true}
         autoplay={{

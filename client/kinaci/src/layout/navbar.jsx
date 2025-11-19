@@ -460,19 +460,31 @@ function Navbar() {
 
             {/* ƏMLAK */}
             <div className="border-b border-gray-100 pb-1">
-              <button
-                onClick={() =>
-                  setOpenSubMenu(openSubMenu === "emlak" ? null : "emlak")
-                }
-                className="w-full flex justify-between items-center text-[17px] font-semibold py-3 text-[#052841]"
-              >
-                Əmlak
-                <span>{openSubMenu === "emlak" ? "▲" : "▼"}</span>
-              </button>
+              <div className="w-full flex justify-between items-center py-3">
+                {/* Sol tərəf — Əmlak səhifəsinə yönləndirir */}
+                <Link
+                  to="/possessions"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-[17px] font-semibold text-[#052841]"
+                >
+                  Əmlak
+                </Link>
 
+                {/* Sağ tərəf — submenu açıb bağlayır */}
+                <button
+                  onClick={() =>
+                    setOpenSubMenu(openSubMenu === "emlak" ? null : "emlak")
+                  }
+                  className="text-[17px] font-semibold text-[#052841]"
+                >
+                  {openSubMenu === "emlak" ? "▲" : "▼"}
+                </button>
+              </div>
+
+              {/* Submenu */}
               <div
                 className={`overflow-hidden transition-all duration-300 pl-3 
-        ${openSubMenu === "emlak" ? "max-h-40" : "max-h-0"}`}
+      ${openSubMenu === "emlak" ? "max-h-40" : "max-h-0"}`}
               >
                 <Link
                   to="/forSale"
@@ -509,19 +521,29 @@ function Navbar() {
 
             {/* Xidmətlərimiz */}
             <div className="border-b border-gray-100 pb-1">
-              <button
-                onClick={() =>
-                  setOpenSubMenu(openSubMenu === "xidmet" ? null : "xidmet")
-                }
-                className="w-full flex justify-between items-center text-[17px] font-semibold py-3 text-[#052841]"
-              >
-                Xidmətlərimiz
-                <span>{openSubMenu === "xidmet" ? "▲" : "▼"}</span>
-              </button>
+              <div className="w-full flex justify-between items-center py-3">
+                {/* Sol tərəf — xidmət səhifəsinə yönləndirir */}
+                <Link
+                  to="/service"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-[17px] font-semibold text-[#052841]"
+                >
+                  Xidmət
+                </Link>
 
+                {/* Sağ tərəf — submenu açıb bağlayır */}
+                <button
+                  onClick={() =>
+                    setOpenSubMenu(openSubMenu === "xidmet" ? null : "xidmet")
+                  }
+                  className="text-[17px] font-semibold text-[#052841]"
+                >
+                  {openSubMenu === "xidmet" ? "▲" : "▼"}
+                </button>
+              </div>
               <div
                 className={`overflow-hidden transition-all duration-300 pl-3 
-        ${openSubMenu === "xidmet" ? "max-h-70" : "max-h-0"}`}
+      ${openSubMenu === "xidmet" ? "max-h-70" : "max-h-0"}`}
               >
                 <Link to="/freeProperty" className="block py-2 text-[#052841]">
                   Pulsuz əmlak seçimi

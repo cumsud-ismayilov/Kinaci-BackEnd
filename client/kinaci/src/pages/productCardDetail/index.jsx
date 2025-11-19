@@ -8,7 +8,7 @@ import Date from "../../icons/Date";
 import Field from "../../icons/field";
 import { Link } from "react-router";
 import PrintSec from "../../components/prinntSec";
-import WhatsapIcon from "../../icons/whatsapIcon";
+import WhatsapIcon from "../../icons/watsapp";
 import TelegramIcon from "../../icons/telegramIcon";
 import FaceBook from "../../icons/faceBook";
 import Instagram from "../../icons/instagram";
@@ -16,16 +16,18 @@ import HomeIcon from "../../icons/homeicon2";
 import { FavoriteContext } from "../../context/favoriteContext";
 import { toast } from "react-toastify";
 import BackGroundSec from "../../components/backgroundSec";
+import SearchFilter from "../../components/searchFilter/searchFilter";
 
 function ProductCardDetail() {
   const { id } = useParams();
   const [singlePro, setSinglePro] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const data = await getProductById(id); // yalnız kliklənən məhsulu alır
+        const data = await getProductById(id);
         setSinglePro(data);
       } catch (err) {
         setError(err.message || "Məhsulu gətirərkən xəta baş verdi");
@@ -33,7 +35,6 @@ function ProductCardDetail() {
         setLoading(false);
       }
     };
-
     fetchProduct();
   }, [id]);
 
@@ -60,20 +61,35 @@ function ProductCardDetail() {
 
   return (
     <>
-      <BackGroundSec bgColor="#052841"></BackGroundSec>
-      <div className="bg-[#f7f7f7] pt-[2rem]">
-        <div className="max-w-5xl mx-auto  mb-[1rem]">
+      {/* Background və SearchFilter */}
+      <div className="relative overflow-visible z-[1]">
+        <BackGroundSec bgColor="#052841">
+          <div className="absolute top-[44px] left-1/2 -translate-x-1/2 w-full max-w-5xl z-[50]">
+            <SearchFilter />
+          </div>
+        </BackGroundSec>
+      </div>
+
+      {/* Main Content */}
+      <div className="bg-[#f7f7f7] pt-[6rem] lg:pt-[2rem] px-3 lg:px-0">
+        {/* Başlıq */}
+        <div className="max-w-5xl mx-auto mb-4">
           <h1 className="text-[#052841] text-[23px] font-semibold">
             {singlePro.title}
           </h1>
           <p className="text-[#052841] text-[14px]">{singlePro.location}</p>
         </div>
+
+        {/* Grid */}
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(200px,3fr)_minmax(250px,1fr)] gap-6">
-          <div>
+          {/* Sol Sütun */}
+          <div className="flex flex-col gap-4">
             <ThumbsGallery singlePro={singlePro} />
-            <div className="bg-[#ffffff]">
-              <div className="flex justify-between p-[20px_8px]">
-                <div className="flex items-center gap-[8px]">
+
+            {/* Property Info */}
+            <div className="bg-[#fff]">
+              <div className="flex flex-col lg:flex-row justify-between p-4 lg:p-5 gap-4 lg:gap-0">
+                <div className="flex items-center gap-3">
                   <RoomIcon />
                   <div>
                     <h6 className="text-[#052841] text-[14px] font-semibold">
@@ -84,18 +100,18 @@ function ProductCardDetail() {
                     </span>
                   </div>
                 </div>
-                <div className="flex items-center gap-[8px]">
+                <div className="flex items-center gap-3">
                   <BathRoom />
                   <div>
                     <h6 className="text-[#052841] text-[14px] font-semibold">
                       Hamam
                     </h6>
                     <span className="text-[#052841] text-[13px]">
-                      {singlePro.baths ?? " -"}
+                      {singlePro.baths ?? "-"}
                     </span>
                   </div>
                 </div>
-                <div className="flex items-center gap-[8px]">
+                <div className="flex items-center gap-3">
                   <Date />
                   <div>
                     <h6 className="text-[#052841] text-[14px] font-semibold">
@@ -106,7 +122,7 @@ function ProductCardDetail() {
                     </span>
                   </div>
                 </div>
-                <div className="flex items-center gap-[8px]">
+                <div className="flex items-center gap-3">
                   <Field />
                   <div>
                     <h6 className="text-[#052841] text-[14px] font-semibold">
@@ -118,14 +134,16 @@ function ProductCardDetail() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 p-[32px_8px] gap-[20px]">
+
+              {/* Favorite Section */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 lg:p-8">
                 <p className="text-[#052841] text-[12px]">
                   Siz bu əmlak haqqında tam məlumat və qiymət siyahısı, alış
                   prosedurunun mərhələləri, mümkün endirimlər və s. alacaqsınız
                 </p>
                 <button
                   onClick={toggleFavorite}
-                  className={`text-[14px] border rounded-[6px] cursor-pointer transition-all duration-300 ${
+                  className={`text-[14px] border rounded-[6px] cursor-pointer transition-all duration-300 w-full sm:w-auto h-[43px] sm:h-auto ${
                     isFav
                       ? "bg-[#dc3545] border-[#dc3545] text-white hover:opacity-80"
                       : "text-[#dc3545] border-[#dc3545] hover:bg-[#dc3545] hover:text-white"
@@ -134,10 +152,14 @@ function ProductCardDetail() {
                   {isFav ? "Favorilərdən çıxar" : "Favoritlərə əlavə et"}
                 </button>
               </div>
-              <div className="bg-[#eaf3f9] m-[8px] p-[12px]">
-                <h4 className="text-[20px]">Kısa Bilgiler</h4>
-                <div className="grid grid-cols-3">
-                  <div className="flex flex-col gap-[13px]">
+
+              {/* Short Info */}
+              <div className="bg-[#eaf3f9] p-4 mt-4 rounded mx-[6px]">
+                <h4 className="text-[18px] font-semibold mb-3">
+                  Kısa Bilgiler
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="flex flex-col gap-2">
                     <p className="text-[#ed6b2c]">{singlePro.location}</p>
                     <p className="text-[14px]">
                       Mülk Tipi: {singlePro.propertyType}
@@ -147,18 +169,18 @@ function ProductCardDetail() {
                       Dənizlə məsafə: {singlePro.distanceOfSea}
                     </p>
                   </div>
-                  <div className="flex flex-col gap-[13px]">
+                  <div className="flex flex-col gap-2">
                     <p className="text-[14px]">
                       Mərtəbə: {singlePro.floor ?? "-"}
                     </p>
                     <p className="text-[14px]">
                       Əməliyyat növü: {singlePro.transactionType}
                     </p>
-                    <p className="tetx-[14px]">
-                      Hamam otağı: {singlePro.baths ?? " -"}
+                    <p className="text-[14px]">
+                      Hamam otağı: {singlePro.baths ?? "-"}
                     </p>
                   </div>
-                  <div className="flex flex-col gap-[13px]">
+                  <div className="flex flex-col gap-2">
                     <p className="text-[14px]">
                       Vətəndaşlıq çərçivəsində: {singlePro.citizenship}
                     </p>
@@ -171,32 +193,38 @@ function ProductCardDetail() {
                   </div>
                 </div>
               </div>
-              <div className="bg-[#eaf3f9] p-[12px_12px] mt-[3rem] mb-[3rem] ml-[8px] mr-[8px]">
-                <h4 className="text-[20px]">İnfrastruktur</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                  {singlePro?.infrastructure?.map((item, index) => (
-                    <div key={index} className="flex items-center gap-2 p-2">
-                      <span className="text-[#052841] text-[14px]">
-                        - {item}
-                      </span>
+
+              {/* Infrastruktur */}
+              <div className="bg-[#eaf3f9] p-4 mt-4 rounded mx-[6px]">
+                <h4 className="text-[18px] font-semibold mb-3">
+                  İnfrastruktur
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                  {singlePro?.infrastructure?.map((item, idx) => (
+                    <div key={idx} className="text-[14px]">
+                      - {item}
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="grid grid-cols-3 p-[16px] gap-[10px]">
-                <button className="text-[14px] p-[6px] rounded-[6px] border border-[#0dcaf0] text-[#fff] bg-[#0dcaf0]">
+
+              {/* Action Buttons */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4 mx-[6px]">
+                <button className="w-full text-[14px] p-2 rounded border bg-[#0dcaf0] text-white">
                   <Link to="https://wa.me/+905441380707">
                     Çevrimiçi Görüntüleme
-                  </Link>{" "}
+                  </Link>
                 </button>
-                <button className="text-[14px] p-[6px] rounded-[6px] border border-[#212529] text-[#fff] bg-[#212529]">
+                <button className="w-full text-[14px] p-2 rounded border bg-[#212529] text-white">
                   <Link>Ücretsiz Tur</Link>
                 </button>
-                <button className="text-[14px] p-[6px] rounded-[6px] bg-[#ED6B2C] border border-[#ED6B2C] text-[#fff]">
+                <button className="w-full text-[14px] p-2 rounded border bg-[#ED6B2C] text-white">
                   Fiyat Listesi Al
                 </button>
               </div>
-              <div className="p-[32px_8px] flex flex-col gap-[14px]">
+
+              {/* Description */}
+              <div className="p-4 mt-4 flex flex-col gap-2">
                 <h6 className="font-semibold">Təsvir</h6>
                 <p>
                   Duis mattis laoreet neque, et ornare neque sollicitudin at.
@@ -216,137 +244,83 @@ function ProductCardDetail() {
                 </p>
               </div>
             </div>
-            <div className="bg-[#fff] mt-[14px] mb-[40px] p-[16px]">
-              <h1 className="text-[21px] text-center font-semibold">
+
+            {/* Form Section */}
+            <div className="bg-[#fff] mt-4 p-4 rounded">
+              <h1 className="text-[21px] text-center font-semibold mb-3">
                 Məlumat Almaq İstəyirəm
               </h1>
-              <div className="grid grid-cols-2 gap-[10px]">
-                <form>
-                  <label
-                    htmlFor="ad"
-                    className="inline-block m-[5px_0px] text-[13px]"
-                  >
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <form className="flex flex-col gap-2">
+                  <label htmlFor="ad" className="text-[13px]">
                     Ad & Soyad
                   </label>
-                  <input
-                    type="text"
-                    className="p-[12px] w-full border border-[#dee2e6] block  leading-1.5 rounded-[6px]"
-                  />
-                  <label
-                    htmlFor="e-poçt"
-                    className="inline-block m-[5px_0px] text-[13px]"
-                  >
+                  <input type="text" className="p-2 w-full border rounded" />
+                  <label htmlFor="email" className="text-[13px]">
                     E-poçt
                   </label>
-                  <input
-                    type="email"
-                    className="p-[12px] w-full border border-[#dee2e6] block leading-1.5 rounded-[6px]"
-                  />
-                  <label
-                    htmlFor="tel"
-                    className="inline-block m-[5px_0px] text-[13px]"
-                  >
+                  <input type="email" className="p-2 w-full border rounded" />
+                  <label htmlFor="tel" className="text-[13px]">
                     Telefon nömrəniz **
                   </label>
-                  <input
-                    type="text"
-                    className="p-[12px] w-full border border-[#dee2e6] block leading-1.5 rounded-[6px]"
-                  />
+                  <input type="text" className="p-2 w-full border rounded" />
                 </form>
-                <div>
-                  <label htmlFor="" className="block m-[5px_0px] text-[13px]">
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="" className="text-[13px]">
                     Mesajınız
                   </label>
-                  <textarea
-                    name=""
-                    id=""
-                    cols="30"
-                    rows="3"
-                    className="p-[6px_12px] border border-[#dee2e6] resize-none w-full rounded-[6px] h-[208px]"
-                  ></textarea>
+                  <textarea className="p-2 border w-full rounded h-48 resize-none"></textarea>
                 </div>
               </div>
-              <button className="mt-[20px] p-[8px] border border-[#ED6B2C] bg-[#ED6B2C] text-[#fff] w-full rounded-[6px] cursor-pointer">
+              <button className="mt-3 w-full p-2 bg-[#ED6B2C] text-white rounded">
                 Sorğumu göndər
               </button>
             </div>
           </div>
-          <div>
-            <button className="w-full  text-[14px] p-[6px] rounded-[6px] bg-[#ED6B2C] border border-[#ED6B2C] text-[#fff] cursor-pointer">
+
+          {/* Sağ Sütun */}
+          <div className="flex flex-col gap-4">
+            <button className="w-full p-2 bg-[#ED6B2C] text-white rounded border">
               Əmlak ID : {singlePro.id}
             </button>
-            <button className="w-full m-[16px_0px] text-[14px] p-[10px] rounded-[6px] border border-[#212529] text-[#fff] bg-[#212529]">
+            <button className="w-full p-2 bg-[#212529] text-white rounded border">
               Kvadrat metr : {singlePro.squareMeter}
             </button>
-            <button className="w-full  text-[14px] p-[14px] rounded-[6px] border border-[#0dcaf0] text-[#fff] bg-[#0dcaf0]">
+            <button className="w-full p-2 bg-[#0dcaf0] text-white rounded border">
               {singlePro.price}
             </button>
-            <div className="bg-[#fff] p-[15px] m-[30px_0px]">
-              <h6 className="font-semibold text-[15px]">Sual verin</h6>
-              <div className="w-[230px] h-[250px]">
-                <img
-                  src="https://kinaciproperty.com/assets/anna-666a683d.jpg"
-                  className="w-full h-full rounded-[50%]"
-                />
-              </div>
-              <h6 className="font-semibold text-[15px]">Anna Drobot</h6>
-              <span className="text-[13px]">Satış Lideri</span>
-              <div className="flex gap-[13px] m-[10px_0px]">
-                <TelegramIcon />
 
-                <Link
-                  to="https://wa.me/+905441380707"
-                  className="flex gap-[9px] items-center"
-                >
-                  <p className="bg-[#07bc0c] w-[26px] h-[26px] rounded-[3px]">
-                    <WhatsapIcon />
-                  </p>
-                  <span className="text-[#ed6b2c] text-[13px]">
-                    +90 (544) 138 0707
-                  </span>
+            {/* Satış Lideri */}
+            <div className="bg-[#fff] p-4 rounded flex flex-col items-center gap-2">
+              <img
+                src="https://kinaciproperty.com/assets/anna-666a683d.jpg"
+                className="w-[150px] h-[150px] rounded-full"
+              />
+              <h6 className="font-semibold">Anna Drobot</h6>
+              <span className="text-[13px]">Satış Lideri</span>
+              <div className="flex flex-wrap items-center gap-2 mt-2">
+                <Link to="#">
+                  <WhatsapIcon />
                 </Link>
-              </div>
-              <p className="text-[13px]">
-                E-mail :
-                <Link
-                  to="mailto:info@kinacigroup.com"
-                  className="text-[#ed6b2c]"
-                >
-                  {" "}
-                  info@kinacigroup.com
+                <Link to="#">
+                  <TelegramIcon />
                 </Link>
-              </p>
-            </div>
-            <div className="bg-[#fff] p-[10px_20px] m-[10px_0px]">
-              <h6 className="font-semibold text-[15px]">Məzmunu Paylaşın</h6>
-              <div className="flex gap-[12px] mt-[8px]">
-                <TelegramIcon />
-                <Link
-                  to="https://wa.me/+905441380707"
-                  className="flex gap-[9px] items-center"
-                >
-                  <p className="bg-[#07bc0c] w-[26px] h-[26px] rounded-[3px]">
-                    <WhatsapIcon />
-                  </p>
+                <Link to="#">
+                  <FaceBook />
                 </Link>
-                <Link>
-                  <p>
-                    <FaceBook />
-                  </p>
-                </Link>
-                <Link>
-                  <p>
-                    <Instagram />
-                  </p>
+                <Link to="#">
+                  <Instagram />
                 </Link>
               </div>
             </div>
-            <div className="bg-[#fff] p-[10px_14px] m-[10px_0px] rounded-[7px] border-1 border-[#ED6B2C]">
-              <div className="flex items-center gap-[4px]">
+
+            {/* Digər content */}
+            <div className="bg-[#fff] p-3 rounded border border-[#ED6B2C]">
+              <div className="flex items-center gap-2">
                 <HomeIcon />
                 <h3 className="text-[15px]">Digər ərazilərdəki əmlaklar</h3>
               </div>
-              <ul className="text-[13px] mt-[7px] flex flex-col gap-1">
+              <ul className="mt-2 flex flex-col gap-1 text-[13px]">
                 <li>
                   <Link to="/possessions?city=İstanbul">İstanbul</Link>
                 </li>

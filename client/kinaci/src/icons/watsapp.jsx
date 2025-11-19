@@ -8,10 +8,10 @@ function Watsapp({Width}) {
       fill="currentColor"
       strokeWidth={0}
       viewBox="0 0 32 32"
-      height="1em"
-      width="1em"
+      height="30px"
+      width="30px"
       xmlns="http://www.w3.org/2000/svg"
-      className="text-[#45ed63] text-[23px]"
+      className="text-[#45ed63] text-[24px]"
     >
       <path
         fillRule="evenodd"

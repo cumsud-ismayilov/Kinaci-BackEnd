@@ -21,6 +21,17 @@ function Slider() {
         navigation={true}
         modules={[Autoplay, Navigation]}
         className="mySwiper myCustomSwiper"
+                breakpoints={{
+          0: {
+            slidesPerView: 1,
+          },
+          640: {
+            slidesPerView: 2,
+          },
+          1024: {
+            slidesPerView: 4,
+          },
+        }}
       >
         <SwiperSlide>
           <img

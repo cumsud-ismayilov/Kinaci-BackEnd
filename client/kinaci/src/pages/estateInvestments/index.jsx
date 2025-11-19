@@ -12,8 +12,8 @@ function EstateInvestments() {
           <SearchFilter />
         </div>
       </div>
-      <div className="max-w-6xl mx-auto grid lg:grid-cols-1 items-center gap-6 m-[50px_0px]">
-        <h2 className="text-[28px] font-semibold">Əmlak İnvestisiyaları</h2>
+      <div className="max-w-6xl mx-auto grid lg:grid-cols-1 items-center gap-6 m-[50px_0px] px-4 md:px-0">
+        <h2 className="text-[28px] font-semibold mt-[2rem] md:mt-0">Əmlak İnvestisiyaları</h2>
         <div
           className="w-full h-[500px] bg-no-repeat bg-cover bg-center rounded-[12px] mb-[37px]"
           style={{ backgroundImage: `url(${FreePropertyImg})` }}

@@ -85,18 +85,18 @@ function CardGridView({ data }) {
                   {item.price}
                 </button>
               </div>
-
               <div className="flex justify-between">
-                <button className="text-[#212529] border border-[#212529] rounded-[5px] p-[6px_32px] text-[15px] cursor-pointer">
+                <button className="text-[#212529] border border-[#212529] rounded-[5px] p-[6px_32px] text-[15px] cursor-pointer max-sm:w-[48%] max-sm:p-[10px]">
                   Hızlı iletişim
                 </button>
                 <button
-                  className="text-[#ED6B2C] border border-[#ED6B2C] rounded-[5px] p-[6px_40px] text-[15px] cursor-pointer"
-                  onClick={() => navigate(`/product/${item.id}`)}
+                  className="text-[#ED6B2C] border border-[#ED6B2C] rounded-[5px] p-[6px_40px] text-[15px] cursor-pointer  max-sm:w-[48%] max-sm:p-[10px]"
+                  onClick={() => navigate(`/product/${id}`)}
                 >
                   Detaylar
                 </button>
               </div>
+
             </div>
           </div>
         );
