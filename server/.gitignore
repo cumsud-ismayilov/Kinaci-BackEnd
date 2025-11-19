@@ -1,0 +1,24 @@
+# Node modules
+node_modules/
+
+# Env faylı (MongoDB URL, JWT secret və s.)
+.env
+
+# Log faylları
+*.log
+
+# Build / dist faylları
+dist/
+build/
+
+# OS faylları
+.DS_Store
+Thumbs.db
+
+# IDE / editor faylları
+.vscode/
+.idea/
+
+# Temporary fayllar
+*.tmp
+*.temp
