@@ -1,5 +1,5 @@
 # Node modules
-node_modules/
+node_modules
 
 # Env faylı (MongoDB URL, JWT secret və s.)
 .env
