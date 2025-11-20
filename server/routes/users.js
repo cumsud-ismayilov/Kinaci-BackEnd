@@ -28,11 +28,11 @@ router.delete("/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { fullName, email, role } = req.body;
+    const { fullName, email, role, phone  } = req.body;
 
     const updatedUser = await User.findByIdAndUpdate(
       id,
-      { fullName, email, role },
+      { fullName, email, role, phone  },
       { new: true }
     );
 

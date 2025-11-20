@@ -17,12 +17,16 @@ import { FavoriteContext } from "../../context/favoriteContext";
 import { toast } from "react-toastify";
 import BackGroundSec from "../../components/backgroundSec";
 import SearchFilter from "../../components/searchFilter/searchFilter";
+import ProductInquiryForm from "./ProductInquiryForm";
 
 function ProductCardDetail() {
   const { id } = useParams();
   const [singlePro, setSinglePro] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const { favorites, setFavorites } = useContext(FavoriteContext);
+  const isFav = favorites.some((item) => item.id === id);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -41,23 +45,27 @@ function ProductCardDetail() {
   if (loading) return <p className="p-6">Yüklənir...</p>;
   if (error) return <p className="p-6 text-red-500">Xəta: {error}</p>;
 
-  const { favorites, setFavorites } = useContext(FavoriteContext);
-  const isFav = favorites.some((item) => item.id === id);
+const toggleFavorite = () => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
 
-  const toggleFavorite = () => {
-    if (!id || !singlePro?.title) return;
+  if (!storedUser) {
+    toast.warning("Favorilere əlavə etmək üçün daxil olun!");
+    return;
+  }
 
-    setFavorites((prevFavs) => {
-      const exists = prevFavs.some((item) => item.id === id);
-      if (exists) {
-        toast.info("Favorilərdən çıxarıldı", { toastId: "fav-removed" });
-        return prevFavs.filter((item) => item.id !== id);
-      } else {
-        toast.success("Favorilərə əlavə olundu", { toastId: "fav-added" });
-        return [...prevFavs, { id, title: singlePro.title }];
-      }
-    });
-  };
+  if (!id || !singlePro?.title) return;
+
+  setFavorites((prevFavs) => {
+    const exists = prevFavs.some((item) => item.id === id);
+    if (exists) {
+      toast.info("Favorilərdən çıxarıldı", { toastId: "fav-removed" });
+      return prevFavs.filter((item) => item.id !== id);
+    } else {
+      toast.success("Favorilərə əlavə olundu", { toastId: "fav-added" });
+      return [...prevFavs, { id, title: singlePro.title }];
+    }
+  });
+};
 
   return (
     <>
@@ -246,36 +254,7 @@ function ProductCardDetail() {
             </div>
 
             {/* Form Section */}
-            <div className="bg-[#fff] mt-4 p-4 rounded">
-              <h1 className="text-[21px] text-center font-semibold mb-3">
-                Məlumat Almaq İstəyirəm
-              </h1>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <form className="flex flex-col gap-2">
-                  <label htmlFor="ad" className="text-[13px]">
-                    Ad & Soyad
-                  </label>
-                  <input type="text" className="p-2 w-full border rounded" />
-                  <label htmlFor="email" className="text-[13px]">
-                    E-poçt
-                  </label>
-                  <input type="email" className="p-2 w-full border rounded" />
-                  <label htmlFor="tel" className="text-[13px]">
-                    Telefon nömrəniz **
-                  </label>
-                  <input type="text" className="p-2 w-full border rounded" />
-                </form>
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="" className="text-[13px]">
-                    Mesajınız
-                  </label>
-                  <textarea className="p-2 border w-full rounded h-48 resize-none"></textarea>
-                </div>
-              </div>
-              <button className="mt-3 w-full p-2 bg-[#ED6B2C] text-white rounded">
-                Sorğumu göndər
-              </button>
-            </div>
+            <ProductInquiryForm productId={id} />
           </div>
 
           {/* Sağ Sütun */}

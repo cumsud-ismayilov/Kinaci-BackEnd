@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import { getNewsById } from "../../services";
 import UserIcon from "../../icons/userIcon";
 import { User } from "lucide-react";
@@ -14,9 +15,8 @@ function NewsDetail() {
   const [error, setError] = useState(null);
 
   const [comments, setComments] = useState([]);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [commentText, setCommentText] = useState("");
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -45,9 +45,32 @@ function NewsDetail() {
     fetchComments();
   }, [id]);
 
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newComment = { newsId: id, name, email, text: commentText };
+
+    if (!user) {
+      toast.warning("Şərh yazmaq üçün əvvəlcə daxil olun!");
+      return;
+    }
+
+    if (!commentText.trim()) {
+      toast.error("Şərhinizi daxil edin!");
+      return;
+    }
+
+    const newComment = {
+      newsId: id,
+      name: user.name,
+      email: user.email,
+      text: commentText,
+    };
 
     try {
       const res = await fetch("http://localhost:5000/comments", {
@@ -58,11 +81,10 @@ function NewsDetail() {
 
       const savedComment = await res.json();
       setComments((prev) => [...prev, savedComment]);
-      setName("");
-      setEmail("");
       setCommentText("");
     } catch (err) {
       console.log("Şərh göndərilə bilmədi:", err);
+      toast.error("Şərh göndərilə bilmədi");
     }
   };
 
@@ -80,7 +102,9 @@ function NewsDetail() {
       </div>
 
       <div className="max-w-5xl mx-auto py-10 px-4 sm:px-0 mt-12 sm:mt-0">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-2">{singlePro.title2}</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2">
+          {singlePro.title2}
+        </h1>
 
         <p className="text-[13px] flex flex-col sm:flex-row sm:items-center gap-[6px] sm:gap-[8px]">
           <span className="flex items-center gap-1">
@@ -101,7 +125,9 @@ function NewsDetail() {
           />
         </div>
 
-        <p className="text-[14px] sm:text-[15px] text-[#052841] mt-4">{singlePro.content}</p>
+        <p className="text-[14px] sm:text-[15px] text-[#052841] mt-4">
+          {singlePro.content}
+        </p>
 
         <div className="my-5 py-6 sm:py-10 border-t border-b border-[#ececec] flex flex-wrap justify-center gap-2 sm:gap-[10px]">
           <span className="p-2.5 bg-[#fef4f3] rounded-[30px]">Kiralık</span>
@@ -137,29 +163,31 @@ function NewsDetail() {
           <form onSubmit={handleSubmit} className="pt-[10px]">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label htmlFor="name" className="block text-[13px] sm:text-[14px] pb-[5px]">
+                <label
+                  htmlFor="name"
+                  className="block text-[13px] sm:text-[14px] pb-[5px]"
+                >
                   Ad
                 </label>
                 <input
                   type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Ad daxil edin"
-                  className="p-2 sm:p-[6px_12px] w-full text-[#212529] border border-[#dee2e6] rounded-[6px]"
-                  required
+                  value={user?.name || ""}
+                  readOnly
+                  className="p-2 sm:p-[6px_12px] w-full text-[#212529] border border-[#dee2e6] rounded-[6px] bg-gray-100 cursor-not-allowed"
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-[13px] sm:text-[14px] pb-[5px]">
+                <label
+                  htmlFor="email"
+                  className="block text-[13px] sm:text-[14px] pb-[5px]"
+                >
                   E-mail
                 </label>
                 <input
                   type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="E-mail daxil edin"
-                  className="p-2 sm:p-[6px_12px] w-full text-[#212529] border border-[#dee2e6] rounded-[6px]"
-                  required
+                  value={user?.email || ""}
+                  readOnly
+                  className="p-2 sm:p-[6px_12px] w-full text-[#212529] border border-[#dee2e6] rounded-[6px] bg-gray-100 cursor-not-allowed"
                 />
               </div>
             </div>
@@ -168,14 +196,20 @@ function NewsDetail() {
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
               rows="4"
-              placeholder="Şərhinizi yazın..."
-              className="w-full border border-[#dee2e6] p-2 sm:p-[6px_12px] mt-4 mb-6 rounded-[6px]"
-              required
+              placeholder={
+                user
+                  ? "Şərhinizi yazın..."
+                  : "Şərh yazmaq üçün əvvəlcə daxil olun"
+              }
+              className={`w-full border border-[#dee2e6] p-2 sm:p-[6px_12px] mt-4 mb-6 rounded-[6px] ${
+                !user ? "bg-gray-100 cursor-not-allowed" : ""
+              }`}
+              readOnly={!user}
             ></textarea>
 
             <button
               type="submit"
-              className="mb-6 bg-[#2582c1] text-[#fff] rounded-[6px] text-[14px] p-2 sm:p-[6px_12px] w-full sm:w-auto"
+              className="mb-6 bg-[#2582c1] text-[#fff] rounded-[6px] text-[14px] p-2 sm:p-[6px_12px] w-full sm:w-auto hover:bg-[#1f6aa0] transition"
             >
               Şərh göndərin
             </button>

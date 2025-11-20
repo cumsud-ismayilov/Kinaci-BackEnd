@@ -1,6 +1,11 @@
-import React from "react";
+import { useState } from "react";
+import LoginModal from "../../../components/loginAndregister"; 
 
 function GoogleMapSec() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   return (
     <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-6 px-4 py-6">
       
@@ -28,11 +33,14 @@ function GoogleMapSec() {
           nunc bibendum in. Duis id nunc gravida urna.
         </p>
 
-        <button className="py-3 px-6 rounded-[12px] w-full md:w-full font-semibold bg-orange-500 text-white cursor-pointer">
+        <button onClick={openModal}  className="py-3 px-6 rounded-[12px] w-full md:w-full font-semibold bg-orange-500 text-white cursor-pointer">
           Bizimlə əlaqə saxlayın
         </button>
+        {isModalOpen && <LoginModal closeModal={closeModal} />}
       </div>
+      
     </div>
+    
   );
 }
 

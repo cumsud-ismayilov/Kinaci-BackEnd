@@ -15,8 +15,9 @@ import {
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import HomeWorkIcon from "@mui/icons-material/HomeWork";
-import MailIcon from "@mui/icons-material/Mail";      
+import MailIcon from "@mui/icons-material/Mail";
 import CommentIcon from "@mui/icons-material/Comment";
+import HelpIcon from "@mui/icons-material/Help";
 import darkTheme from "./darktheme";
 
 const drawerWidth = 240;
@@ -81,6 +82,12 @@ function AdminLayout() {
                 {/* Daha uyğun icon seçə bilərsən, məsələn CommentIcon */}
               </ListItemIcon>
               <ListItemText primary="Comments" />
+            </ListItem>
+            <ListItem button component={Link} to="/admin/inquiries">
+              <ListItemIcon>
+                <HelpIcon />
+              </ListItemIcon>
+              <ListItemText primary="Inquiries" />
             </ListItem>
           </List>
         </Drawer>

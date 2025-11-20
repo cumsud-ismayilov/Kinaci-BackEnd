@@ -5,6 +5,7 @@ import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import contactRoutes from "./routes/contact.js";
 import commentsRouter from "./routes/comment.js";
+import inquiryRoute from "./routes/inquiry.js";
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -21,6 +22,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/comments", commentsRouter);
+app.use("/api/inquiry", inquiryRoute);
+
 
 // ✅ MongoDB-ə qoşulma
 mongoose

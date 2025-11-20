@@ -17,7 +17,6 @@ import FavoriteModal from "../components/favouriteModal";
 import { useContext } from "react";
 import { FavoriteContext } from "../context/favoriteContext";
 import AuthModal from "../components/loginAndregister/";
-import { toast } from "react-toastify";
 
 function Navbar() {
   const location = useLocation();
@@ -95,13 +94,13 @@ function Navbar() {
           {/* ===== DESKTOP SOL PANEL ===== */}
           <div className="headerLeft hidden lg:flex gap-[10px]">
             <button className="bg-[#2582C1] text-white rounded-[5px] p-[6px_8px]">
-              <Link className="flex justify-center items-center gap-[5px] text-[14px] font-semibold leading-[14px]">
+              <Link to="mailto:info@kinacigroup.com" className="flex justify-center items-center gap-[5px] text-[14px] font-semibold leading-[14px]">
                 <Envelope /> info@kinacigroup.com
               </Link>
             </button>
 
             <button className="bg-[#ED6B2C] text-white rounded-[5px] p-[6px_8px]">
-              <Link className="flex justify-center items-center gap-[5px] text-[14px] font-semibold leading-[14px]">
+              <Link to="tel:+994514586806" className="flex justify-center items-center gap-[5px] text-[14px] font-semibold leading-[14px]">
                 <Phone /> +90(544) 138 07 07
               </Link>
             </button>

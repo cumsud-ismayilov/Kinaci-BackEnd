@@ -1,17 +1,33 @@
 import InputSecImg from "../../../assets/inputSecImg.jpg";
 import KinaciLogo from "../../../assets/logoFooter-fc4666aa.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 function InputSec() {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+  });
+
+  useEffect(() => {
+    // Login olmuş istifadəçi məlumatlarını avtomatik doldur
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      const user = JSON.parse(userData);
+      if (user && user._id) {
+        setFormData({
+          name: user.name || "",
+          phone: user.phone || "",
+          email: user.email || "",
+        });
+      }
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Login yoxlaması
     const userData = localStorage.getItem("user");
     const user = userData ? JSON.parse(userData) : null;
 
@@ -20,25 +36,17 @@ function InputSec() {
       return;
     }
 
-    if (!name || !phone || !email) {
-      toast.error("Zəhmət olmasa bütün sahələri doldurun!");
-      return;
-    }
-
     try {
       const res = await fetch("http://localhost:5000/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, email, userId: user._id }),
+        body: JSON.stringify({ ...formData, userId: user._id }),
       });
 
       const data = await res.json();
 
       if (res.ok) {
         toast.success("Məlumat uğurla göndərildi ✅");
-        setName("");
-        setPhone("");
-        setEmail("");
       } else {
         toast.error(data.message || "Xəta baş verdi ❌");
       }
@@ -64,53 +72,41 @@ function InputSec() {
 
             <div className="flex flex-col gap-3 md:gap-[9px]">
               <div>
-                <label
-                  htmlFor="ad"
-                  className="block text-sm md:text-[14px] mb-1"
-                >
+                <label htmlFor="ad" className="block text-sm md:text-[14px] mb-1">
                   Ad & Soyad
                 </label>
                 <input
                   type="text"
                   id="ad"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Adınızı ve Soyadınız girin"
-                  className="w-full border border-[#dee2e6] rounded-[6px] p-3 text-sm md:text-[14px] outline-none focus:ring-2 focus:ring-orange-400"
+                  value={formData.name}
+                  readOnly
+                  className="w-full border border-[#dee2e6] rounded-[6px] p-3 text-sm md:text-[14px] bg-gray-100 cursor-not-allowed"
                 />
               </div>
 
               <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-sm md:text-[14px] mb-1"
-                >
+                <label htmlFor="phone" className="block text-sm md:text-[14px] mb-1">
                   Telefon
                 </label>
                 <input
                   type="text"
                   id="phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="Telefon numaranızı girin"
-                  className="w-full border border-[#dee2e6] rounded-[6px] p-3 text-sm md:text-[14px] outline-none focus:ring-2 focus:ring-orange-400"
+                  value={formData.phone}
+                 
+                  className="w-full border border-[#dee2e6] rounded-[6px] p-3 text-sm md:text-[14px] bg-gray-100 cursor-not-allowed"
                 />
               </div>
 
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm md:text-[14px] mb-1"
-                >
+                <label htmlFor="email" className="block text-sm md:text-[14px] mb-1">
                   E-Mail
                 </label>
                 <input
                   type="email"
                   id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="E-Mail adresinizi girin"
-                  className="w-full border border-[#dee2e6] rounded-[6px] p-3 text-sm md:text-[14px] outline-none focus:ring-2 focus:ring-orange-400"
+                  value={formData.email}
+                  readOnly
+                  className="w-full border border-[#dee2e6] rounded-[6px] p-3 text-sm md:text-[14px] bg-gray-100 cursor-not-allowed"
                 />
               </div>
             </div>

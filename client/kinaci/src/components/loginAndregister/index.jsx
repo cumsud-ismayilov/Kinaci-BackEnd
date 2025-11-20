@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify";
+import { createPortal } from "react-dom";
 
 function index({ closeModal }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -10,6 +11,7 @@ function index({ closeModal }) {
   const [password, setPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [phone, setPhone] = useState("");
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -26,7 +28,8 @@ function index({ closeModal }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          fullName,// ✅ Düz oldu
+          fullName,
+          phone,  // ✅ Düz oldu
           email,
           password,
         }),
@@ -66,7 +69,7 @@ function index({ closeModal }) {
     }
   };
 
-  return (
+  return createPortal (
     <AnimatePresence>
       <motion.div
         className="fixed inset-0 bg-black/40 flex justify-center items-center z-[9999]"
@@ -171,7 +174,14 @@ function index({ closeModal }) {
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                 />
-
+                <label className="block">Telefon</label> {/* Yeni input */}
+                <input
+                  className="input input my-2.5 px-2.5 py-4  rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full flex text-xs h-[50px] "
+                  type="text"
+                  placeholder="0501234567"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
                 <label className="block">E-Mail</label>
                 <input
                   className="input input my-2.5 px-2.5 py-4  rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full flex text-xs h-[50px] "
@@ -180,7 +190,6 @@ function index({ closeModal }) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-
                 <label className="block">Şifrə</label>
                 <input
                   className="input input my-2.5 px-2.5 py-4  rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full flex text-xs h-[50px] "
@@ -188,7 +197,6 @@ function index({ closeModal }) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-
                 <button className="py-3 px-8 rounded-selectBtn w-full font-semibold gap-3 bg-orange-500 text-white hover:bg-orange-600 cursor-pointer rounded-xl">
                   Qeydiyyatdan keç
                 </button>
@@ -207,7 +215,8 @@ function index({ closeModal }) {
           )}
         </motion.div>
       </motion.div>
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }
 

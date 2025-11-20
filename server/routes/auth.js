@@ -7,7 +7,7 @@ const router = express.Router();
 // REGISTER
 router.post("/register", async (req, res) => {
   try {
-    const { fullName, email, password } = req.body;
+    const { fullName, email, password, phone } = req.body;
 
     const exist = await User.findOne({ email });
     if (exist)
@@ -15,7 +15,7 @@ router.post("/register", async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await User.create({ fullName, email, password: hashedPassword });
+    await User.create({ fullName, email, password: hashedPassword, phone });
 
     res.json({ message: "Qeydiyyat uğurlu ✅" });
   } catch (err) {
@@ -42,6 +42,7 @@ router.post("/login", async (req, res) => {
         _id: user._id,
         name: user.fullName, // fullname burada olmalıdır
         email: user.email,
+        phone: user.phone,
       },
     });
   } catch (err) {

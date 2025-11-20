@@ -88,7 +88,7 @@ export default function SearchSection({ className = "" }) {
           </div>
           <div className="my-auto relative z-[999] hidden sm:flex">
             <button className="text-[#fff] bg-[#0D9488] p-[6px_12px] rounded-[6px]"><Link to="/onlineTour">Bilik Turuna başla</Link></button>
-            <button className="text-[#fff] bg-[#2563EB] p-[6px_12px] rounded-[6px] ml-[6px]"><Link>Axtarış tələb edin</Link></button>
+            <button className="text-[#fff] bg-[#2563EB] p-[6px_12px] rounded-[6px] ml-[6px]"><Link to="/possessions">Axtarış tələb edin</Link></button>
           </div>
         </div>
 

@@ -12,23 +12,31 @@ function CardGridView({ data }) {
   const { favorites, setFavorites } = useContext(FavoriteContext);
   const navigate = useNavigate();
 
-  const toggleFavorite = (item) => {
-    const { id, title } = item;
-    if (!id || !title) return;
+const toggleFavorite = (item) => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
 
-    const isFav = favorites.some((fav) => fav.id === id);
-    let updatedFavs = [...favorites];
+  if (!storedUser) {
+    toast.warning("Favorilərə əlavə etmək üçün daxil olun!");
+    return;
+  }
 
-    if (isFav) {
-      updatedFavs = updatedFavs.filter((fav) => fav.id !== id);
-      toast.info(`Favorilərdən çıxarıldı`);
-    } else {
-      updatedFavs.push({ id, title });
-      toast.success(`Favorilərə əlavə olundu`);
-    }
+  const { id, title } = item;
+  if (!id || !title) return;
 
-    setFavorites(updatedFavs);
-  };
+  const isFav = favorites.some((fav) => fav.id === id);
+  let updatedFavs = [...favorites];
+
+  if (isFav) {
+    updatedFavs = updatedFavs.filter((fav) => fav.id !== id);
+    toast.info(`Favorilərdən çıxarıldı`);
+  } else {
+    updatedFavs.push({ id, title });
+    toast.success(`Favorilərə əlavə olundu`);
+  }
+
+  setFavorites(updatedFavs);
+};
+
 
   return (
     <div className="max-w-5xl mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[20px]">

@@ -23,8 +23,9 @@ import Dashboard from "../admin/Dashboard";
 import Users from "../admin/Users";
 import Properties from "../admin/Properties";
 import AdminContacts from "../admin/contacts";
-import NewsDetail from "../pages/newsCardDetail"
-import AdminComments from "../admin/comments"
+import AdminInquiries from "../admin/Inquiries"
+import NewsDetail from "../pages/newsCardDetail";
+import AdminComments from "../admin/comments";
 export const routers = createBrowserRouter([
   {
     path: "/",
@@ -120,7 +121,8 @@ export const routers = createBrowserRouter([
         element: <Properties />,
       },
       { path: "contacts", element: <AdminContacts /> },
-      { path: "comments", element: <AdminComments />}
+      { path: "comments", element: <AdminComments /> },
+      { path: "inquiries", element: <AdminInquiries /> },
     ],
   },
 ]);

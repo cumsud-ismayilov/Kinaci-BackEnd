@@ -174,16 +174,16 @@ function HomePage() {
           </div>
         </div>
 
-<div className="mx-auto max-w-full sm:max-w-[480px] lg:max-w-5xl grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[20px] px-[11px]">
-  {filteredProducts.slice(0, 6).map((product) => (
-    <ProductCard
-      {...product}
-      key={product.id}
-      favorites={favorites}
-      setFavorites={setFavorites}
-    />
-  ))}
-</div>
+        <div className="mx-auto max-w-full sm:max-w-[480px] lg:max-w-5xl grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[20px] px-[11px]">
+          {filteredProducts.slice(0, 6).map((product) => (
+            <ProductCard
+              {...product}
+              key={product.id}
+              favorites={favorites}
+              setFavorites={setFavorites}
+            />
+          ))}
+        </div>
 
         <div className="max-w-5xl mx-auto flex justify-center pt-[3rem] pb-[3rem]">
           <button className="text-[#ED6B2C] border border-[#ED6B2C] rounded-[5px] p-[6px_40px] text-[15px] cursor-pointer">
