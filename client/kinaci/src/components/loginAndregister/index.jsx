@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify";
 import { createPortal } from "react-dom";
+import KinaciLogo from "../../assets/kinaciLogo.png"
 
 function index({ closeModal }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -12,6 +13,8 @@ function index({ closeModal }) {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [phone, setPhone] = useState("");
+
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -24,12 +27,12 @@ function index({ closeModal }) {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/api/auth/register", {
+      const res = await fetch(`${API_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fullName,
-          phone,  // ✅ Düz oldu
+          phone, // ✅ Düz oldu
           email,
           password,
         }),
@@ -51,7 +54,7 @@ function index({ closeModal }) {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:5000/api/auth/login", {
+    const res = await fetch(`${API_URL}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: loginEmail, password: loginPassword }),
@@ -69,7 +72,7 @@ function index({ closeModal }) {
     }
   };
 
-  return createPortal (
+  return createPortal(
     <AnimatePresence>
       <motion.div
         className="fixed inset-0 bg-black/40 flex justify-center items-center z-[9999]"
@@ -103,7 +106,7 @@ function index({ closeModal }) {
             >
               <img
                 className="w-[158px] h-[86px]"
-                src="http://localhost:5173/src/assets/kinaciLogo.png"
+                src={KinaciLogo}
                 alt="kinaciLogo"
               />
               <h2 className="text-2xl font-bold mb-6 mt-6">Hesab</h2>
@@ -157,7 +160,7 @@ function index({ closeModal }) {
             >
               <img
                 className="w-[158px] h-[86px]"
-                src="http://localhost:5173/src/assets/kinaciLogo.png"
+                src={KinaciLogo}
                 alt="kinaciLogo"
               />
               <h2 className="text-2xl font-bold mb-6 mt-6">Hesab</h2>

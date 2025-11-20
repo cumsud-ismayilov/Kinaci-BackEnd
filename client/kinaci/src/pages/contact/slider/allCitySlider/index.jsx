@@ -9,10 +9,10 @@ import { useNavigate } from "react-router-dom";
 import Antalya from "../../../../assets/div-item.png";
 import Istanbul from "../../../../assets/div-item-1.png";
 import Izmir from "../../../../assets/div-item-2.png";
-import Ankara from "../../../../assets/ankara.png.png";
-import Edirne from "../../../../assets/edirne.png.png";
-import Tekirdag from "../../../../assets/tekirdağ.png.png";
-import Eskisehir from "../../../../assets/eskişehir.png.png";
+import Ankara from "../../../../assets/ankara.png";
+import Edirne from "../../../../assets/edirne.png";
+import Tekirdag from "../../../../assets/tekirdağ.png";
+import Eskisehir from "../../../../assets/eskişehir.png";
 
 const cities = [
   { name: "Antalya", img: Antalya },
