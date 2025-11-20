@@ -18,7 +18,7 @@ import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import MailIcon from "@mui/icons-material/Mail";
 import CommentIcon from "@mui/icons-material/Comment";
 import HelpIcon from "@mui/icons-material/Help";
-import darkTheme from "./darktheme";
+import darkTheme from "./theme"; 
 
 const drawerWidth = 240;
 
