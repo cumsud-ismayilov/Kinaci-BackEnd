@@ -10,27 +10,40 @@ import {
   AppBar,
   Typography,
   Box,
-  ThemeProvider,
 } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import MailIcon from "@mui/icons-material/Mail";
 import CommentIcon from "@mui/icons-material/Comment";
 import HelpIcon from "@mui/icons-material/Help";
-import darkTheme from "./theme"; 
 
 const drawerWidth = 240;
 
+// 1️⃣ Custom MUI theme
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#1976d2", // AppBar rəngi
+    },
+    secondary: {
+      main: "#f50057",
+    },
+  },
+  typography: {
+    h6: {
+      fontWeight: 600,
+    },
+  },
+});
+
 function AdminLayout() {
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
       <Box sx={{ display: "flex" }}>
         {/* Top AppBar */}
-        <AppBar
-          position="fixed"
-          sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        >
+        <AppBar position="fixed">
           <Toolbar>
             <Typography variant="h6" noWrap component="div">
               Admin Panel
@@ -72,14 +85,13 @@ function AdminLayout() {
             </ListItem>
             <ListItem button component={Link} to="/admin/contacts">
               <ListItemIcon>
-                <MailIcon /> {/* İstəsən fərqli icon qoy */}
+                <MailIcon />
               </ListItemIcon>
               <ListItemText primary="Contacts" />
             </ListItem>
             <ListItem button component={Link} to="/admin/comments">
               <ListItemIcon>
-                <CommentIcon />{" "}
-                {/* Daha uyğun icon seçə bilərsən, məsələn CommentIcon */}
+                <CommentIcon />
               </ListItemIcon>
               <ListItemText primary="Comments" />
             </ListItem>
