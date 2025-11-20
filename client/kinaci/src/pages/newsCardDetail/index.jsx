@@ -18,6 +18,8 @@ function NewsDetail() {
   const [commentText, setCommentText] = useState("");
   const [user, setUser] = useState(null);
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -35,7 +37,7 @@ function NewsDetail() {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/comments/news/${id}`);
+        const res = await fetch(`${API_URL}/comments/news/${id}`);
         const data = await res.json();
         setComments(data);
       } catch (err) {
@@ -73,7 +75,7 @@ function NewsDetail() {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/comments", {
+      const res = await fetch(`${API_URL}/comments`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newComment),

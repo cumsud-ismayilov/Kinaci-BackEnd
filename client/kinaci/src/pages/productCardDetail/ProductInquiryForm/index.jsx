@@ -10,6 +10,9 @@ function ProductInquiryForm({ productId }) {
   });
   const [loading, setLoading] = useState(false);
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
+
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser) {
@@ -43,7 +46,7 @@ function ProductInquiryForm({ productId }) {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/inquiry", {
+      const res = await fetch(`${API_URL}/api/inquiry`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

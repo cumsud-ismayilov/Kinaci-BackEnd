@@ -20,14 +20,14 @@ function AdminComments() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const API_URL = "http://localhost:5000/comments"; // Backend URL
+   const API_URL = import.meta.env.VITE_API_URL; // Backend URL
 
   // Fetch comments
   useEffect(() => {
     const fetchComments = async () => {
       setLoading(true);
       try {
-        const res = await fetch(API_URL);
+        const res = await fetch(`${API_URL}/comments`);
         const data = await res.json();
         setComments(data);
       } catch (err) {
@@ -43,7 +43,7 @@ function AdminComments() {
   const handleDelete = async (id) => {
     if (window.confirm("Əminsinizmi?")) {
       try {
-        await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+        await fetch(`${API_URL}/comments/${id}`, { method: "DELETE" });
         setComments((prev) => prev.filter((c) => c._id !== id));
       } catch (err) {
         console.error("Delete error:", err);

@@ -18,13 +18,13 @@ function Inquiries() {
   const [inquiries, setInquiries] = useState([]);
   const [search, setSearch] = useState("");
 
-  const API_URL = "http://localhost:5000/api/inquiry";
+    const API_URL = import.meta.env.VITE_API_URL;
 
 
   useEffect(() => {
     const fetchInquiries = async () => {
       try {
-        const res = await fetch(API_URL);
+        const res = await fetch(`${API_URL}/api/inquiry`);
         const data = await res.json();
         setInquiries(data);
       } catch (err) {
@@ -39,7 +39,7 @@ function Inquiries() {
     if (!window.confirm("Silinsin?")) return;
 
     try {
-      await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+      await fetch(`${API_URL}/api/inquiry/${id}`, { method: "DELETE" });
       setInquiries((prev) => prev.filter((i) => i._id !== id));
     } catch (err) {
       console.log("Delete error:", err);

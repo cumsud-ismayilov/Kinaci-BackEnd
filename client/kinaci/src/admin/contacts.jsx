@@ -12,10 +12,12 @@ import {
 
 function contacts() {
   const [contacts, setContacts] = useState([]);
+
+  const API_URL = import.meta.env.VITE_API_URL;
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/contact");
+        const res = await fetch(`${API_URL}/api/contact`);
         const data = await res.json();
         console.log("Backend cavabı:", data); // bunu əlavə et
         setContacts(data); // və ya data.contact
@@ -30,7 +32,7 @@ function contacts() {
     if (!window.confirm("Silmək istədiyinizə əminsiniz?")) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/contact/${id}`, {
+      const res = await fetch(`${API_URL}/api/contact/${id}`, {
         method: "DELETE",
       });
 
