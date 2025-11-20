@@ -19,8 +19,10 @@ function Users() {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
-    fetch("http://localhost:5000/api/users")
+    fetch(`${API_URL}/api/users`)
       .then((res) => res.json())
       .then((data) => setUsers(data))
       .catch((err) => console.error(err));
@@ -28,7 +30,7 @@ function Users() {
 
 const handleDelete = async (id) => {
   try {
-    await fetch(`http://localhost:5000/api/users/${id}`, { method: "DELETE" });
+    await fetch(`${API_URL}/api/users/${id}`, { method: "DELETE" });
     setUsers(users.filter((user) => user._id !== id)); // frontend update
   } catch (err) {
     console.error(err);
@@ -42,7 +44,7 @@ const handleDelete = async (id) => {
 
   if (fullName && email && role) {
     try {
-      const res = await fetch(`http://localhost:5000/api/users/${user._id}`, {
+      const res = await fetch(`${API_URL}/api/users/${user._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ fullName, email, role }),

@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import BackGroundSec from "../../components/backgroundSec";
 import PrintSec from "../../components/prinntSec";
 import ServiceCard from "./serviceCard";
@@ -15,15 +15,16 @@ function Service() {
       </div>
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-6 m-[2rem_0rem] mt-[6rem] md:mt-[2rem] px-4 md:px-0 ">
         <ul>
-          <li className="text-[22px] md:text-[26px] font-semibold">Xidmətlərimiz</li>
+          <li className="text-[22px] md:text-[26px] font-semibold">
+            Xidmətlərimiz
+          </li>
           <li className="text-[12px] md:text-[13px]">
             <Link to="/">Anasayfa /</Link>Xidmətlərimiz
           </li>
         </ul>
       </div>
       <div className="px-4">
-      <ServiceCard />
-
+        <ServiceCard />
       </div>
       <PrintSec />
     </div>

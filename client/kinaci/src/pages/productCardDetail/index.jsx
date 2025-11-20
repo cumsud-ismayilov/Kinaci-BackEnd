@@ -6,7 +6,7 @@ import RoomIcon from "../../icons/roomIcon";
 import BathRoom from "../../icons/BathRoom";
 import Date from "../../icons/Date";
 import Field from "../../icons/field";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import PrintSec from "../../components/prinntSec";
 import WhatsapIcon from "../../icons/watsapp";
 import TelegramIcon from "../../icons/telegramIcon";
@@ -45,27 +45,27 @@ function ProductCardDetail() {
   if (loading) return <p className="p-6">Yüklənir...</p>;
   if (error) return <p className="p-6 text-red-500">Xəta: {error}</p>;
 
-const toggleFavorite = () => {
-  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const toggleFavorite = () => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
 
-  if (!storedUser) {
-    toast.warning("Favorilere əlavə etmək üçün daxil olun!");
-    return;
-  }
-
-  if (!id || !singlePro?.title) return;
-
-  setFavorites((prevFavs) => {
-    const exists = prevFavs.some((item) => item.id === id);
-    if (exists) {
-      toast.info("Favorilərdən çıxarıldı", { toastId: "fav-removed" });
-      return prevFavs.filter((item) => item.id !== id);
-    } else {
-      toast.success("Favorilərə əlavə olundu", { toastId: "fav-added" });
-      return [...prevFavs, { id, title: singlePro.title }];
+    if (!storedUser) {
+      toast.warning("Favorilere əlavə etmək üçün daxil olun!");
+      return;
     }
-  });
-};
+
+    if (!id || !singlePro?.title) return;
+
+    setFavorites((prevFavs) => {
+      const exists = prevFavs.some((item) => item.id === id);
+      if (exists) {
+        toast.info("Favorilərdən çıxarıldı", { toastId: "fav-removed" });
+        return prevFavs.filter((item) => item.id !== id);
+      } else {
+        toast.success("Favorilərə əlavə olundu", { toastId: "fav-added" });
+        return [...prevFavs, { id, title: singlePro.title }];
+      }
+    });
+  };
 
   return (
     <>

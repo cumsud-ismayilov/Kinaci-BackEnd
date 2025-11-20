@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import Team1 from "../../../assets/team1-bb1e2ace.webp";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -21,7 +22,7 @@ function Slider() {
         navigation={true}
         modules={[Autoplay, Navigation]}
         className="mySwiper myCustomSwiper"
-                breakpoints={{
+        breakpoints={{
           0: {
             slidesPerView: 1,
           },
@@ -34,70 +35,37 @@ function Slider() {
         }}
       >
         <SwiperSlide>
-          <img
-            src="https://kinaciproperty.com/assets/team1-bb1e2ace.webp"
-            alt=""
-          />
+          <img src={Team1} alt="" />
         </SwiperSlide>
         <SwiperSlide>
-          <img
-            src="https://kinaciproperty.com/assets/team1-bb1e2ace.webp"
-            alt=""
-          />
+          <img src={Team1} alt="" />
         </SwiperSlide>
         <SwiperSlide>
-          <img
-            src="https://kinaciproperty.com/assets/team1-bb1e2ace.webp"
-            alt=""
-          />
+          <img src={Team1} alt="" />
         </SwiperSlide>
         <SwiperSlide>
-          <img
-            src="https://kinaciproperty.com/assets/team1-bb1e2ace.webp"
-            alt=""
-          />
+          <img src={Team1} alt="" />
         </SwiperSlide>
         <SwiperSlide>
-          <img
-            src="https://kinaciproperty.com/assets/team1-bb1e2ace.webp"
-            alt=""
-          />
+          <img src={Team1} alt="" />
         </SwiperSlide>
         <SwiperSlide>
-          <img
-            src="https://kinaciproperty.com/assets/team1-bb1e2ace.webp"
-            alt=""
-          />
+          <img src={Team1} alt="" />
         </SwiperSlide>
         <SwiperSlide>
-          <img
-            src="https://kinaciproperty.com/assets/team1-bb1e2ace.webp"
-            alt=""
-          />
+          <img src={Team1} alt="" />
         </SwiperSlide>
         <SwiperSlide>
-          <img
-            src="https://kinaciproperty.com/assets/team1-bb1e2ace.webp"
-            alt=""
-          />
+          <img src={Team1} alt="" />
         </SwiperSlide>
         <SwiperSlide>
-          <img
-            src="https://kinaciproperty.com/assets/team1-bb1e2ace.webp"
-            alt=""
-          />
+          <img src={Team1} alt="" />
         </SwiperSlide>
         <SwiperSlide>
-          <img
-            src="https://kinaciproperty.com/assets/team1-bb1e2ace.webp"
-            alt=""
-          />
+          <img src={Team1} alt="" />
         </SwiperSlide>
         <SwiperSlide>
-          <img
-            src="https://kinaciproperty.com/assets/team1-bb1e2ace.webp"
-            alt=""
-          />
+          <img src={Team1} alt="" />
         </SwiperSlide>
       </Swiper>
     </>

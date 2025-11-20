@@ -30,7 +30,6 @@ function About() {
         <img className="w-full h-full " src={BackImg1} alt="Imgbanner" />{" "}
       </div>
 
-
       {/* Content Sections */}
       <div>
         <div className="px-4 md:px-0 mt-[6rem] md:mt-0">

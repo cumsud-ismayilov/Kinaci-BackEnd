@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import Phone from "../../icons/phone";
 import RightArrow from "../../icons/rightArrow";
 
@@ -6,7 +6,6 @@ function PrintSec() {
   return (
     <section className="bg-[#fdf2ee] py-10 px-4">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-6">
-
         {/* --- Text Left --- */}
         <div className="text-left">
           <h2 className="text-[22px] md:text-3xl font-bold text-[#062f3d] leading-snug mb-2">
@@ -19,7 +18,6 @@ function PrintSec() {
 
         {/* --- Buttons --- */}
         <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-start md:justify-end">
-
           {/* Contact Button */}
           <Link
             to="/"

@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { FavoriteContext } from "../../context/favoriteContext";
 import InputSec from "../about/inputSec";
 import HomeSwipper from "../../components/homeSwipper";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import SearchSection from "../../components/searchFilter/searchFilter";
 import AllCitySlider from "../contact/slider/allCitySlider";
 

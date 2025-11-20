@@ -1,8 +1,7 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import Watsapp from "../../../icons/watsapp";
 import Telegram from "../../../icons/telegram";
 import Instagram from "../../../icons/instagram";
-
 
 function OfficeSec() {
   return (
@@ -34,7 +33,7 @@ function OfficeSec() {
             <div className="navLeft flex items-center justify-center mt-[14px] gap-[25px]">
               <Link to="https://wa.link/b8r5jq" target="_blank">
                 <p>
-                  <Watsapp Width = {"23px"}/>
+                  <Watsapp Width={"23px"} />
                 </p>
               </Link>
               <Link to="https://t.me/Zeynal" target="_blank">
@@ -44,7 +43,7 @@ function OfficeSec() {
               </Link>
               <Link to="https://www.instagram.com/mrshm_llo/" target="_blank">
                 <p>
-                  <Instagram/>
+                  <Instagram />
                 </p>
               </Link>
             </div>
