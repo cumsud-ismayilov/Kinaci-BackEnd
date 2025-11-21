@@ -11,7 +11,6 @@ function InputSec() {
   });
 
   useEffect(() => {
-    // Login olmuş istifadəçi məlumatlarını avtomatik doldur
     const userData = localStorage.getItem("user");
     if (userData) {
       const user = JSON.parse(userData);
@@ -60,7 +59,6 @@ function InputSec() {
   return (
     <section className="inputSec bg-[#F4F9FC] py-12 px-4">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-6">
-        {/* --- Form --- */}
         <div className="bg-white rounded-[7px] p-6 md:p-[24px] h-full">
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
@@ -122,7 +120,6 @@ function InputSec() {
           </form>
         </div>
 
-        {/* --- Image --- */}
         <div className="relative w-full h-[250px] md:h-auto">
           <img
             src={InputSecImg}

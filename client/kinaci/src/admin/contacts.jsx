@@ -19,8 +19,8 @@ function contacts() {
       try {
         const res = await fetch(`${API_URL}/api/contact`);
         const data = await res.json();
-        console.log("Backend cavabı:", data); // bunu əlavə et
-        setContacts(data); // və ya data.contact
+        console.log("Backend cavabı:", data); 
+        setContacts(data); 
       } catch (err) {
         console.error(err);
       }
@@ -39,7 +39,7 @@ function contacts() {
       const data = await res.json();
       if (res.ok) {
         setContacts(contacts.filter((c) => c._id !== id));
-        alert(data.message); // və ya toast istifadə et
+        alert(data.message); 
       } else {
         alert(data.message);
       }

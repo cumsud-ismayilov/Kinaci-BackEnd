@@ -69,7 +69,6 @@ function ProductCardDetail() {
 
   return (
     <>
-      {/* Background və SearchFilter */}
       <div className="relative overflow-visible z-[1]">
         <BackGroundSec bgColor="#052841">
           <div className="absolute top-[44px] left-1/2 -translate-x-1/2 w-full max-w-5xl z-[50]">
@@ -78,9 +77,7 @@ function ProductCardDetail() {
         </BackGroundSec>
       </div>
 
-      {/* Main Content */}
       <div className="bg-[#f7f7f7] pt-[6rem] lg:pt-[2rem] px-3 lg:px-0">
-        {/* Başlıq */}
         <div className="max-w-5xl mx-auto mb-4">
           <h1 className="text-[#052841] text-[23px] font-semibold">
             {singlePro.title}
@@ -88,13 +85,10 @@ function ProductCardDetail() {
           <p className="text-[#052841] text-[14px]">{singlePro.location}</p>
         </div>
 
-        {/* Grid */}
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(200px,3fr)_minmax(250px,1fr)] gap-6">
-          {/* Sol Sütun */}
           <div className="flex flex-col gap-4">
             <ThumbsGallery singlePro={singlePro} />
 
-            {/* Property Info */}
             <div className="bg-[#fff]">
               <div className="flex flex-col lg:flex-row justify-between p-4 lg:p-5 gap-4 lg:gap-0">
                 <div className="flex items-center gap-3">
@@ -143,7 +137,6 @@ function ProductCardDetail() {
                 </div>
               </div>
 
-              {/* Favorite Section */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 lg:p-8">
                 <p className="text-[#052841] text-[12px]">
                   Siz bu əmlak haqqında tam məlumat və qiymət siyahısı, alış
@@ -161,7 +154,6 @@ function ProductCardDetail() {
                 </button>
               </div>
 
-              {/* Short Info */}
               <div className="bg-[#eaf3f9] p-4 mt-4 rounded mx-[6px]">
                 <h4 className="text-[18px] font-semibold mb-3">
                   Kısa Bilgiler
@@ -202,7 +194,6 @@ function ProductCardDetail() {
                 </div>
               </div>
 
-              {/* Infrastruktur */}
               <div className="bg-[#eaf3f9] p-4 mt-4 rounded mx-[6px]">
                 <h4 className="text-[18px] font-semibold mb-3">
                   İnfrastruktur
@@ -216,7 +207,6 @@ function ProductCardDetail() {
                 </div>
               </div>
 
-              {/* Action Buttons */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4 mx-[6px]">
                 <button className="w-full text-[14px] p-2 rounded border bg-[#0dcaf0] text-white">
                   <Link to="https://wa.me/+905441380707">
@@ -231,7 +221,6 @@ function ProductCardDetail() {
                 </button>
               </div>
 
-              {/* Description */}
               <div className="p-4 mt-4 flex flex-col gap-2">
                 <h6 className="font-semibold">Təsvir</h6>
                 <p>
@@ -253,11 +242,9 @@ function ProductCardDetail() {
               </div>
             </div>
 
-            {/* Form Section */}
             <ProductInquiryForm productId={id} />
           </div>
 
-          {/* Sağ Sütun */}
           <div className="flex flex-col gap-4">
             <button className="w-full p-2 bg-[#ED6B2C] text-white rounded border">
               Əmlak ID : {singlePro.id}
@@ -269,7 +256,6 @@ function ProductCardDetail() {
               {singlePro.price}
             </button>
 
-            {/* Satış Lideri */}
             <div className="bg-[#fff] p-4 rounded flex flex-col items-center gap-2">
               <img
                 src="https://kinaciproperty.com/assets/anna-666a683d.jpg"
@@ -293,7 +279,6 @@ function ProductCardDetail() {
               </div>
             </div>
 
-            {/* Digər content */}
             <div className="bg-[#fff] p-3 rounded border border-[#ED6B2C]">
               <div className="flex items-center gap-2">
                 <HomeIcon />

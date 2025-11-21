@@ -1,4 +1,3 @@
-import BackGroundSec from "../../../components/backgroundSec";
 
 function CommentsSec() {
   return (
@@ -9,7 +8,6 @@ function CommentsSec() {
       </div>
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-stretch gap-6 mb-[2rem] px-4 md:px-0">
-        {/* --- CARD 1 --- */}
         <div className="commentsCard flex flex-row items-start gap-4 p-[12px] mt-[15px] rounded-[10px] shadow-[0_8px_24px_#959da533] h-full">
           <img
             className="w-[100px] h-[100px] md:w-[150px] md:h-[150px] rounded-full border-[20px] border-[#e3e9ee]"
@@ -31,7 +29,6 @@ function CommentsSec() {
           </div>
         </div>
 
-        {/* --- CARD 2 --- */}
         <div className="commentsCard flex flex-row items-start gap-4 p-[12px] mt-[15px] rounded-[10px] shadow-[0_8px_24px_#959da533] h-full">
           <img
             className="w-[100px] h-[100px] md:w-[150px] md:h-[150px] rounded-full border-[20px] border-[#e3e9ee]"

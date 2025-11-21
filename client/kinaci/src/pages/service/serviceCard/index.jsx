@@ -56,7 +56,6 @@ function ServiceCard() {
         </div>
       </div>
 
-      {/* Eyni strukturu digər 3 kart üçün də əlavə et */}
       <div className="service-card">
         <Link to="/estateInvestments" >
           <img

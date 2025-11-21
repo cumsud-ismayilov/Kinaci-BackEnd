@@ -132,17 +132,17 @@ function index({ open, handleClose, onSave, property }) {
 const inputStyle = {
   mb: 2,
   "& .MuiInputBase-root": {
-    backgroundColor: "#fff", // input fonu ağ
-    color: "#000",           // input mətni qara
+    backgroundColor: "#fff", 
+    color: "#000",          
   },
   "& .MuiInputBase-input": {
-    color: "#000",           // input içi text qara
+    color: "#000",           
   },
   "& .MuiInputLabel-root": {
-    color: "#000",           // label qara
+    color: "#000",           
   },
   "& .MuiOutlinedInput-notchedOutline": {
-    borderColor: "#000",     // border qara
+    borderColor: "#000",     
   },
   "&:hover .MuiOutlinedInput-notchedOutline": {
     borderColor: "#000",
@@ -188,7 +188,7 @@ const inputStyle = {
           />
         ))}
 
-        {/* Images Inputs */}
+        
         {Object.keys(formData.images).map((img) => (
           <TextField
             key={img}
@@ -201,7 +201,7 @@ const inputStyle = {
           />
         ))}
 
-        {/* Infrastructure */}
+      
         <Box sx={{ display: "flex", gap: 1, mb: 2, flexWrap: "wrap" }}>
           {formData.infrastructure.map((item, index) => (
             <Chip

@@ -61,7 +61,7 @@ function ProductInquiryForm({ productId }) {
       if (!res.ok) throw new Error("Sorğu göndərilmədi");
 
       toast.success("Sorğunuz uğurla göndərildi!");
-      setFormData((prev) => ({ ...prev, message: "" })); // yalnız mesaj sıfırlansın
+      setFormData((prev) => ({ ...prev, message: "" })); 
     } catch (err) {
       toast.error("Xəta baş verdi: " + err.message);
     } finally {
@@ -79,7 +79,6 @@ function ProductInquiryForm({ productId }) {
         className="grid grid-cols-1 sm:grid-cols-2 gap-3"
         onSubmit={handleSubmit}
       >
-        {/* Sol sütun */}
         <div className="flex flex-col gap-2">
           <label htmlFor="name" className="text-[13px]">
             Ad & Soyad
@@ -115,7 +114,6 @@ function ProductInquiryForm({ productId }) {
           />
         </div>
 
-        {/* Sağ sütun */}
         <div className="flex flex-col gap-2">
           <label htmlFor="message" className="text-[13px]">
             Mesajınız
@@ -128,7 +126,6 @@ function ProductInquiryForm({ productId }) {
           />
         </div>
 
-        {/* Submit düyməsi */}
         <div className="sm:col-span-2">
           <button
             type="submit"

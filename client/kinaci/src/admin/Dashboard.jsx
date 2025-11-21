@@ -15,12 +15,15 @@ import {
   Legend,
 } from "chart.js";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
-
-
-
-
-
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 function Dashboard() {
   const chartData = {
@@ -36,16 +39,13 @@ function Dashboard() {
     ],
   };
 
-
-
   return (
     <Box sx={{ p: 2 }}>
-      <Typography variant="h4" gutterBottom   sx={{ color: "#ffffff" }}>
+      <Typography variant="h4" gutterBottom sx={{ color: "#ffffff" }}>
         Dashboard
       </Typography>
 
       <Grid container spacing={3}>
-        {/* Users Card */}
         <Grid item xs={12} sm={6} md={4}>
           <Paper sx={{ p: 2, display: "flex", alignItems: "center" }}>
             <PeopleIcon sx={{ fontSize: 40, mr: 2, color: "primary.main" }} />
@@ -56,10 +56,11 @@ function Dashboard() {
           </Paper>
         </Grid>
 
-        {/* Orders Card */}
         <Grid item xs={12} sm={6} md={4}>
           <Paper sx={{ p: 2, display: "flex", alignItems: "center" }}>
-            <ShoppingCartIcon sx={{ fontSize: 40, mr: 2, color: "secondary.main" }} />
+            <ShoppingCartIcon
+              sx={{ fontSize: 40, mr: 2, color: "secondary.main" }}
+            />
             <Box>
               <Typography variant="h6">Orders</Typography>
               <Typography variant="subtitle1">512</Typography>
@@ -67,7 +68,6 @@ function Dashboard() {
           </Paper>
         </Grid>
 
-        {/* Revenue Card */}
         <Grid item xs={12} sm={6} md={4}>
           <Paper sx={{ p: 2, display: "flex", alignItems: "center" }}>
             <BarChartIcon sx={{ fontSize: 40, mr: 2, color: "success.main" }} />
@@ -78,7 +78,6 @@ function Dashboard() {
           </Paper>
         </Grid>
 
-        {/* Revenue Chart */}
         <Grid item xs={12}>
           <Paper sx={{ p: 2 }}>
             <Typography variant="h6" gutterBottom>
@@ -89,7 +88,7 @@ function Dashboard() {
         </Grid>
       </Grid>
     </Box>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

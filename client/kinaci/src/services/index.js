@@ -22,7 +22,7 @@ export const getAllNews = async () => {
 
 export const getNewsById = async (id) => {
   try {
-    const res = await api.get(`/news/${id}`); // yalnız kliklənən məhsulu çəkir
+    const res = await api.get(`/news/${id}`); 
     if (!res.data) {
       throw new Error("News fetch error");
     }
@@ -37,10 +37,9 @@ export const getNewsById = async (id) => {
 
 
 
-// Tək məhsulu id-ə görə çəkmək
 export const getProductById = async (id) => {
   try {
-    const res = await api.get(`/products/${id}`); // yalnız kliklənən məhsulu çəkir
+    const res = await api.get(`/products/${id}`); 
     if (!res.data) {
       throw new Error("Product fetch error");
     }

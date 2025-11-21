@@ -55,7 +55,6 @@ function HomePage() {
       <SearchSection className="-mt-[122px]" />
       <section className="pt-[4rem] pb-[4rem]">
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-3 pb-[25px] items-center px-[11px] lg:px-0">
-          {/* Başlıq */}
           <div>
             <h1 className="text-[22px] font-semibold">Ölkələrə görə elanlar</h1>
             <p className="text-[13px]">
@@ -63,7 +62,6 @@ function HomePage() {
             </p>
           </div>
 
-          {/* Düymə */}
           <div className="flex justify-start lg:justify-end mt-2 lg:mt-0">
             <button className="bg-[#2582C1] text-white px-4 py-2 rounded-[6px] text-[13px]">
               <Link to="/possessions">Bütün Ölkələri Gör</Link>
@@ -77,13 +75,11 @@ function HomePage() {
       </section>
       <section className="bg-[#E9F2F9] pt-[3rem]">
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-3 pb-[25px] items-center px-[11px] lg:px-0">
-          {/* Başlıq */}
           <div>
             <h1 className="text-[22px] font-semibold">Yeni Gayrimenkuller</h1>
             <p className="text-[13px]">En son eklenen gayrimenkuller</p>
           </div>
 
-          {/* Filter düymələri */}
           <div className="flex flex-row lg:justify-end gap-2 mt-2 lg:mt-0">
             <button
               className={`border rounded-[5px] px-2 py-1 text-[15px] ${
@@ -127,13 +123,11 @@ function HomePage() {
       </section>
       <section className="bg-[#FDF0EA] pt-[3rem]">
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-3 pb-[25px] items-center px-[11px] lg:px-0">
-          {/* Başlıq */}
           <div>
             <h1 className="text-[22px] font-semibold">Kampaniyalı Əmlaklar</h1>
             <p className="text-[13px]">Ən cəlbedici qiymətlər.</p>
           </div>
 
-          {/* Düymə */}
           <div className="flex justify-start lg:justify-end mt-2 lg:mt-0">
             <button className="bg-[#2582C1] text-white px-4 py-2 rounded-[6px] text-[13px]">
               <Link to="/possessions">Bütün Kampaniyalara Baxın</Link>
@@ -160,13 +154,11 @@ function HomePage() {
       </section>
       <section className="bg-[#E9F2F9] pt-[3rem]">
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-3 pb-[25px] items-center px-[11px] lg:px-0">
-          {/* Başlıq */}
           <div>
             <h1 className="text-[22px] font-semibold">Ən Yaxşı Təkliflər</h1>
             <p className="text-[13px]">Sizin üçün xüsusi təkliflərimiz.</p>
           </div>
 
-          {/* Düymə */}
           <div className="flex justify-start lg:justify-end mt-2 lg:mt-0">
             <button className="bg-[#2582C1] text-white px-4 py-2 rounded-[6px] text-[13px]">
               <Link to="/possessions">Bütün Kampaniyalara Baxın</Link>

@@ -6,12 +6,11 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 
-export default function ThumbsGallery({singlePro}) {
+export default function ThumbsGallery({ singlePro }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   return (
     <div className="w-full">
-      {/* Böyük şəkil */}
       <Swiper
         style={{
           "--swiper-navigation-color": "#fff",
@@ -82,7 +81,7 @@ export default function ThumbsGallery({singlePro}) {
         </SwiperSlide>
       </Swiper>
 
-      {/* Thumbnail şəkillər */}
+     
       <Swiper
         onSwiper={setThumbsSwiper}
         loop={true}

@@ -15,17 +15,16 @@ import emptyAnimation from "../../animations/empty.json";
 function ForRent() {
   const [view, setView] = useState("grid");
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]); // ✅ yeni state
+  const [filteredProducts, setFilteredProducts] = useState([]); 
   const [up, setUp] = useState(false);
   const [sortOption, setSortOption] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
-  const location = useLocation(); // ✅ URL parametrlər
+  const location = useLocation(); 
   const queryParams = new URLSearchParams(location.search);
 
-  // 🔹 Məhsulları yüklə
   useEffect(() => {
     (async () => {
       try {
@@ -37,7 +36,6 @@ function ForRent() {
     })();
   }, [up]);
 
-  // 🔹 SearchSection-dan gələn filterləri tətbiq et
   useEffect(() => {
     if (products.length === 0) return;
 
@@ -53,7 +51,6 @@ function ForRent() {
     const propertyId = queryParams.get("propertyId");
     const cityParam = queryParams.get("city");
 
-    // ✅ Yalnız Kirayə olan məhsullar
     filtered = filtered.filter((p) => p.transactionType === "Kirayə");
 
     if (cityParam) {
@@ -90,7 +87,6 @@ function ForRent() {
     setFilteredProducts(filtered);
   }, [products, location.search]);
 
-  // 🔹 Sort sistemi (sənin orijinal uzun versiyan kimi)
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (sortOption === "price-asc") {
       const priceA = parseInt(a.price.replace(/[^\d]/g, ""), 10) || 0;
@@ -119,7 +115,6 @@ function ForRent() {
     return 0;
   });
 
-  // 🔹 Pagination eyni qalır
   const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedData = sortedProducts.slice(

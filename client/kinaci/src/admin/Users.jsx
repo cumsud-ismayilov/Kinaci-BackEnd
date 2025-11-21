@@ -31,7 +31,7 @@ function Users() {
 const handleDelete = async (id) => {
   try {
     await fetch(`${API_URL}/api/users/${id}`, { method: "DELETE" });
-    setUsers(users.filter((user) => user._id !== id)); // frontend update
+    setUsers(users.filter((user) => user._id !== id));
   } catch (err) {
     console.error(err);
   }
@@ -75,10 +75,10 @@ const handleDelete = async (id) => {
         fullWidth
         sx={{
           mb: 2,
-          input: { color: "#fff" }, // yazı rəngi
-          label: { color: "#90caf9" }, // label rəngi
+          input: { color: "#fff" }, 
+          label: { color: "#90caf9" }, 
           "& .MuiOutlinedInput-root": {
-            "& fieldset": { borderColor: "#555" }, // border rəngi
+            "& fieldset": { borderColor: "#555" }, 
             "&:hover fieldset": { borderColor: "#90caf9" },
             "&.Mui-focused fieldset": { borderColor: "#90caf9" },
           },

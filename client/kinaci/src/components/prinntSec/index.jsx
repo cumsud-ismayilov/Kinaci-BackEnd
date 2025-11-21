@@ -6,7 +6,6 @@ function PrintSec() {
   return (
     <section className="bg-[#fdf2ee] py-10 px-4">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-6">
-        {/* --- Text Left --- */}
         <div className="text-left">
           <h2 className="text-[22px] md:text-3xl font-bold text-[#062f3d] leading-snug mb-2">
             Kömək lazımdır? Mütəxəssisimizlə danışın.
@@ -16,9 +15,7 @@ function PrintSec() {
           </p>
         </div>
 
-        {/* --- Buttons --- */}
         <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-start md:justify-end">
-          {/* Contact Button */}
           <Link
             to="/"
             className="border bg-white border-orange-500 text-orange-500 
@@ -30,7 +27,6 @@ function PrintSec() {
             <RightArrow />
           </Link>
 
-          {/* Call Button */}
           <Link
             to="tel:+994514586806"
             className="bg-orange-500 text-white 

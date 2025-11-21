@@ -32,7 +32,7 @@ function index({ closeModal }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fullName,
-          phone, // ✅ Düz oldu
+          phone, 
           email,
           password,
         }),
@@ -42,13 +42,13 @@ function index({ closeModal }) {
       console.log(data);
 
       if (res.ok) {
-        toast.success("Qeydiyyat uğurludur ✅");
+        toast.success("Qeydiyyat uğurludur ");
         setIsLogin(true);
       } else {
-        toast.error(data.message || "Xəta baş verdi ❌");
+        toast.error(data.message || "Xəta baş verdi ");
       }
     } catch (error) {
-      toast.error("Serverə qoşulmaq olmur ❌");
+      toast.error("Serverə qoşulmaq olmur ");
     }
   };
 
@@ -64,7 +64,7 @@ function index({ closeModal }) {
 
     if (res.ok) {
       localStorage.setItem("user", JSON.stringify(data.user));
-      // toast.success("Uğurla daxil oldunuz ✅");
+      // toast.success("Uğurla daxil oldunuz ");
       closeModal();
       window.location.reload();
     } else {
@@ -87,7 +87,6 @@ function index({ closeModal }) {
           exit={{ scale: 0.8, opacity: 0 }}
           transition={{ duration: 0.35, ease: "easeOut" }}
         >
-          {/* X (Close Button) */}
           <button
             onClick={closeModal}
             className="absolute top-3 right-3 text-2xl font-bold text-orange-600 hover:scale-110 transition"
@@ -95,7 +94,6 @@ function index({ closeModal }) {
             ✕
           </button>
 
-          {/* LOGIN FORM */}
           {isLogin && (
             <motion.div
               key="login"
@@ -149,7 +147,6 @@ function index({ closeModal }) {
             </motion.div>
           )}
 
-          {/* REGISTER FORM */}
           {!isLogin && (
             <motion.div
               key="register"

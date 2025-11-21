@@ -52,14 +52,12 @@ function Blog() {
   </div>
 
   <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(200px,3fr)_minmax(250px,1fr)] gap-6">
-    {/* Main News Cards */}
     <div className="flex flex-col gap-6 w-full lg:w-[590px]">
       {paginatedNews?.map((item) => (
         <NewsCard key={item.id} {...item} />
       ))}
     </div>
 
-    {/* Sidebar */}
     <div className="w-full lg:w-auto">
       <div className="shadow-[0_8px_24px_#959da533] p-[20px] mb-6 lg:mb-0">
         <input

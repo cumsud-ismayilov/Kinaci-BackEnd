@@ -1,4 +1,3 @@
-import React from "react";
 import { Outlet, Link } from "react-router-dom";
 import {
   Drawer,
@@ -21,10 +20,9 @@ import HelpIcon from "@mui/icons-material/Help";
 
 const drawerWidth = 240;
 
-// 🌙 Dark Mode Theme
 const theme = createTheme({
   palette: {
-    mode: "dark", // BURDA DARK MODE ACTIVEDIR
+    mode: "dark",
     primary: {
       main: "#90caf9",
     },
@@ -44,7 +42,6 @@ function AdminLayout() {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ display: "flex" }}>
-        {/* Top AppBar */}
         <AppBar
           position="fixed"
           color="primary"
@@ -60,7 +57,6 @@ function AdminLayout() {
           </Toolbar>
         </AppBar>
 
-        {/* Sidebar Drawer */}
         <Drawer
           variant="permanent"
           sx={{
@@ -69,7 +65,7 @@ function AdminLayout() {
             [`& .MuiDrawer-paper`]: {
               width: drawerWidth,
               boxSizing: "border-box",
-              backgroundColor: "#1e1e1e", // Drawer dark background
+              backgroundColor: "#1e1e1e",
             },
           }}
         >
@@ -114,7 +110,6 @@ function AdminLayout() {
           </List>
         </Drawer>
 
-        {/* Main Content */}
         <Box
           component="main"
           sx={{

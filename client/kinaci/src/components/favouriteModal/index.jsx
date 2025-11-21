@@ -17,7 +17,6 @@ function FavoriteModal({ setIsFav }) {
 
   return (
     <>
-      {/* -------------------- MOBILE MODAL -------------------- */}
       <div className="fixed inset-0 z-[9999] bg-black/40 flex justify-center items-end md:hidden">
         <div
           className="bg-white w-full rounded-t-2xl p-5 max-h-[75vh] overflow-y-auto animate-slideUp shadow-lg"
@@ -61,7 +60,6 @@ function FavoriteModal({ setIsFav }) {
         </style>
       </div>
 
-      {/* -------------------- DESKTOP MODAL -------------------- */}
       <div className="bg-white p-[10px] rounded-[7px] absolute bottom-0 top-[122%] z-[999] min-h-[250px] shadow-lg hidden md:block">
         <div className="flex items-center justify-between border-b-2 border-b-[rgb(243,243,243)] mb-2">
           <h2 className="text-[24px]">Beğendiklerim</h2>

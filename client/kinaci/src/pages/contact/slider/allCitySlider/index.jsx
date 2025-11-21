@@ -5,7 +5,6 @@ import "swiper/css/navigation";
 import { Autoplay, Navigation } from "swiper/modules";
 import { useNavigate } from "react-router-dom";
 
-// 🔹 Şəkilləri birbaşa import edirik:
 import Antalya from "../../../../assets/div-item.png";
 import Istanbul from "../../../../assets/div-item-1.png";
 import Izmir from "../../../../assets/div-item-2.png";
@@ -34,10 +33,10 @@ function AllCitySlider() {
   return (
     <div className="px-[11px] lg:px-0">
       <Swiper
-        slidesPerView={3} // mobil üçün 3 slide
+        slidesPerView={3} 
         spaceBetween={10}
         breakpoints={{
-          1024: { slidesPerView: 4, spaceBetween: 15 }, // desktop ≥1024px
+          1024: { slidesPerView: 4, spaceBetween: 15 }, 
         }}
         autoplay={{ delay: 2500, disableOnInteraction: false }}
         navigation={true}

@@ -145,7 +145,6 @@ function NewsDetail() {
           </div>
         </div>
 
-        {/* Şərhlər */}
         <div className="my-5 py-6 sm:py-10 border-t border-b border-[#ececec]">
           {comments.length === 0 ? (
             <p className="font-semibold text-center">Hələ şərh yoxdur</p>
@@ -159,7 +158,6 @@ function NewsDetail() {
           )}
         </div>
 
-        {/* Şərh formu */}
         <div>
           <h6 className="text-[14px] sm:text-[16px] mb-2">Şərh yazın</h6>
           <form onSubmit={handleSubmit} className="pt-[10px]">

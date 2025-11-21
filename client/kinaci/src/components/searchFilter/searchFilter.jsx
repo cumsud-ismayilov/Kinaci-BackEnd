@@ -24,7 +24,7 @@ export default function SearchSection({ className = "" }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // 🔹 URL parametrlərini yarat
+    // URL parametrlərini yarat
     const params = new URLSearchParams({
       activeTab,
       priceMin,
@@ -37,12 +37,12 @@ export default function SearchSection({ className = "" }) {
       propertyId,
     });
 
-    // 🔹 Boş olanları sil
+    // Boş olanları sil
     for (const [key, value] of params.entries()) {
       if (!value) params.delete(key);
     }
 
-    // 🔹 Possessions səhifəsinə yönləndir
+    // Possessions səhifəsinə yönləndir
     navigate(`/possessions?${params.toString()}`);
   };
 

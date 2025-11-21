@@ -13,7 +13,6 @@ function BestForYou() {
         mb-[2rem]
       "
     >
-      {/* Left Text Section */}
       <div className="mt-[1.5rem] md:mt-[3rem] mb-[1.5rem] md:mb-[3rem] p-[1rem] md:p-[2rem]">
         <h1 className="mb-[2rem] md:mb-[3rem] text-[22px] md:text-[26px] font-semibold leading-snug">
           Gəlin sizə uyğun olanı tapaq...
@@ -21,10 +20,7 @@ function BestForYou() {
 
         <ul className="flex flex-col gap-[20px] md:gap-[30px]">
           {[1, 2, 3].map((i) => (
-            <li
-              key={i}
-              className="flex gap-[20px] md:gap-[37px] items-start"
-            >
+            <li key={i} className="flex gap-[20px] md:gap-[37px] items-start">
               <Lightbulb className="w-[28px] h-[28px]" />
               <div>
                 <p className="font-semibold mb-[6px] md:mb-[8px] text-[15px] md:text-[16px]">
@@ -39,7 +35,6 @@ function BestForYou() {
         </ul>
       </div>
 
-      {/* Right Video Section */}
       <div className="w-full h-auto md:h-full">
         <div className="w-full aspect-video md:aspect-auto md:h-full">
           <iframe

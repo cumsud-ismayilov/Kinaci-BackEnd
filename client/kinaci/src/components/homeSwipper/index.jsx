@@ -1,4 +1,3 @@
-import React from "react";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";

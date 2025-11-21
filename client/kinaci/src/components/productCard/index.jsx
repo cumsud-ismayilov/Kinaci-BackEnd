@@ -29,12 +29,11 @@ function ProductCard({
 
   const toggleFavorite = () => {
     const userData = localStorage.getItem("user");
-    const user = userData ? JSON.parse(userData) : null; // null yoxlaması
+    const user = userData ? JSON.parse(userData) : null;
 
     if (!user || !user._id) {
-      // user məlumatı tam deyilsə də dayandır
       toast.warning("Favoritlərə əlavə etmək üçün daxil olun!");
-      // openLoginModal(); // əgər modal varsa aç
+
       return;
     }
 

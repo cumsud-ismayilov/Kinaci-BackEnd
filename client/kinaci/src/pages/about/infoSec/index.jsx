@@ -12,7 +12,6 @@ function InfoSec() {
       "
       style={{ backgroundImage: `url(${BgImg3})` }}
     >
-      {/* Logo Box */}
       <div
         className="
           bg-[#FDF0EA] w-[160px] h-[120px] sm:w-[210px] sm:h-[160px] 
@@ -28,7 +27,6 @@ function InfoSec() {
         />
       </div>
 
-      {/* Info Text Box */}
       <div
         className="
           info-text 

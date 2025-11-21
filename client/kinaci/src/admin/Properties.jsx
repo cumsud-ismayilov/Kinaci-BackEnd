@@ -28,7 +28,6 @@ function Properties() {
 
   const API_URL = "https://68b1a825a860fe41fd5f2cac.mockapi.io/products";
 
-  // ✅ Fetch data
   useEffect(() => {
     (async () => {
       setLoading(true);
@@ -44,7 +43,6 @@ function Properties() {
     })();
   }, []);
 
-  // ✅ Delete
   const handleDelete = async (id) => {
     if (window.confirm("Əminsinizmi?")) {
       try {
@@ -57,20 +55,18 @@ function Properties() {
   };
 
   const handleAdd = () => {
-    setEditProperty(null); // yeni əlavə
+    setEditProperty(null);
     setModalOpen(true);
   };
 
   const handleEdit = (property) => {
-    setEditProperty(property); // mövcud property redaktə
+    setEditProperty(property);
     setModalOpen(true);
   };
 
-  // ✅ Modal submit (Add/Edit əməliyyatı)
   const handleModalSubmit = async (form) => {
     try {
       if (editProperty) {
-        // UPDATE
         const res = await fetch(`${API_URL}/${editProperty.id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -81,7 +77,6 @@ function Properties() {
           prev.map((p) => (p.id === updated.id ? updated : p))
         );
       } else {
-        // CREATE
         const res = await fetch(API_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -93,11 +88,10 @@ function Properties() {
     } catch (err) {
       console.error("Modal submit error:", err);
     } finally {
-      setModalOpen(false); // modalı bağla
+      setModalOpen(false);
     }
   };
 
-  // ✅ Search filter
   const filtered = properties.filter(
     (p) =>
       p.title?.toLowerCase().includes(search.toLowerCase()) ||
@@ -106,7 +100,7 @@ function Properties() {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom   sx={{ color: "#ffffff" }}>
+      <Typography variant="h4" gutterBottom sx={{ color: "#ffffff" }}>
         Properties Management (MockAPI)
       </Typography>
 
@@ -194,12 +188,11 @@ function Properties() {
         </Table>
       </TableContainer>
 
-      {/* ✅ Modal komponentini əlavə etdik */}
       <AddEditPropertyModal
         open={modalOpen}
         handleClose={() => setModalOpen(false)}
-        onSave={handleModalSubmit} // onSubmit əvəzinə onSave
-        property={editProperty} // initialData əvəzinə property
+        onSave={handleModalSubmit}
+        property={editProperty}
       />
     </Box>
   );

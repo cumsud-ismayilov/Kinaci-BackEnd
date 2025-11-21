@@ -1,5 +1,3 @@
-import React from 'react'
-
 function OurGroup() {
   return (
     <section className='ourGroup mb-[2rem] px-4 md:px-0'>

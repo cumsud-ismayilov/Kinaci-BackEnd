@@ -18,7 +18,6 @@ function Footer() {
         style={{ backgroundImage: `url(${BackGround})` }}
       >
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
-          {/* LOGO + TEXT + SOCIAL */}
           <div className="side1 flex flex-col gap-[24px] text-left items-start">
             <img
               className="w-[150px] lg:w-[173px]"
@@ -74,7 +73,6 @@ function Footer() {
             </ul>
           </div>
 
-          {/* NEWSLETTER */}
           <div className="side3 text-white flex flex-col gap-[18px] text-left items-start">
             <p className="text-[20px] lg:text-[22px] font-medium relative before:absolute before:left-0 before:bottom-0 before:h-[4px] before:w-10 before:bg-[#ED6B2C] before:rounded-full before:content-[''] pb-1">
               Elektron bülleten
@@ -97,7 +95,6 @@ function Footer() {
             </p>
           </div>
 
-          {/* CONTACT */}
           <div className="side4 text-white flex flex-col gap-[18px] text-left items-start">
             <p className="text-[20px] lg:text-[22px] font-medium relative before:absolute before:left-0 before:bottom-0 before:h-[4px] before:w-10 before:bg-[#ED6B2C] before:rounded-full before:content-[''] pb-1">
               Kommunikasiya
@@ -118,7 +115,6 @@ function Footer() {
         </div>
       </div>
 
-      {/* BOTTOM FOOTER */}
       <div className="footer-bottom p-6 lg:p-[1rem_5rem] bg-[#052841]">
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-4 items-start lg:items-center">
           <div className="flex gap-[30px] text-[15px] text-white">

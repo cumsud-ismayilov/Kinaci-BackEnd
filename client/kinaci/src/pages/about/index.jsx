@@ -12,25 +12,21 @@ import SearchFilter from "../../components/searchFilter/searchFilter";
 function About() {
   return (
     <>
-      {/* Background + Filter */}
       <div className="relative overflow-visible z-[1]">
         <BackGroundSec bgColor="#fdf2ee" />
 
         <div
-          className="absolute top-[44px] left-1/2 -translate-x-1/2 
-                        w-full max-w-5xl px-4 md:px-0 z-[50]"
+          className="absolute top-[44px] left-1/2 -translate-x-1/2 w-full max-w-5xl px-4 md:px-0 z-[50]"
         >
           <SearchFilter />
         </div>
       </div>
 
-      {/* Banner Image */}
       <div className="img-banner w-full h-[370px] bg-no-repeat bg-cover mt-[6rem] md:mt-0 hidden md:block">
         {" "}
         <img className="w-full h-full " src={BackImg1} alt="Imgbanner" />{" "}
       </div>
 
-      {/* Content Sections */}
       <div>
         <div className="px-4 md:px-0 mt-[6rem] md:mt-0">
           <KinaciDesc />
@@ -40,7 +36,6 @@ function About() {
         </div>
         <OurGroup />
         <BestForYou />
-        {/* <Certificate/> */}
         <InputSec />
         <PrintSec />
       </div>

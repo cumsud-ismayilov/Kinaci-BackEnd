@@ -20,9 +20,8 @@ function AdminComments() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
 
-   const API_URL = import.meta.env.VITE_API_URL; // Backend URL
+   const API_URL = import.meta.env.VITE_API_URL; 
 
-  // Fetch comments
   useEffect(() => {
     const fetchComments = async () => {
       setLoading(true);
@@ -39,7 +38,6 @@ function AdminComments() {
     fetchComments();
   }, []);
 
-  // Delete comment
   const handleDelete = async (id) => {
     if (window.confirm("Əminsinizmi?")) {
       try {
@@ -51,7 +49,6 @@ function AdminComments() {
     }
   };
 
-  // Search filter
   const filtered = comments.filter(
     (c) =>
       c.name?.toLowerCase().includes(search.toLowerCase()) ||

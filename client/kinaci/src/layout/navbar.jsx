@@ -21,7 +21,7 @@ import AuthModal from "../components/loginAndregister/";
 function Navbar() {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [openSubMenu, setOpenSubMenu] = useState(null); // null, "emlak", "xidmet", və s.
+  const [openSubMenu, setOpenSubMenu] = useState(null);
 
   const [activeMenu, setActiveMenu] = useState("/");
   const [isEmlakOpen, setIsEmlakOpen] = useState(false);
@@ -39,7 +39,7 @@ function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
-    // toast.info("Hesabdan çıxış etdiniz ✅");
+    // toast.info("Hesabdan çıxış etdiniz");
     window.location.reload();
   };
 
@@ -61,13 +61,13 @@ function Navbar() {
 
   useEffect(() => {
     if (isMenuOpen) {
-      document.body.style.overflow = "hidden"; // scroll-u bağlayır
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "auto"; // scroll-u açır
+      document.body.style.overflow = "auto";
     }
 
     return () => {
-      document.body.style.overflow = "auto"; // unmount zamanı bərpa edir
+      document.body.style.overflow = "auto";
     };
   }, [isMenuOpen]);
 
@@ -83,7 +83,6 @@ function Navbar() {
   lg:px-44 lg:py-2.5
 "
         >
-          {/* ===== HAMBURGER — MOBİL ===== */}
           <button
             className="lg:hidden text-[#052841] text-3xl"
             onClick={() => setIsMenuOpen(true)}
@@ -91,7 +90,6 @@ function Navbar() {
             ☰
           </button>
 
-          {/* ===== DESKTOP SOL PANEL ===== */}
           <div className="headerLeft hidden lg:flex gap-[10px]">
             <button className="bg-[#2582C1] text-white rounded-[5px] p-[6px_8px]">
               <Link
@@ -111,7 +109,6 @@ function Navbar() {
               </Link>
             </button>
 
-            {/* === DESKTOP USER === */}
             {user ? (
               <div className="flex items-center gap-[10px]">
                 <div className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold">
@@ -142,7 +139,6 @@ function Navbar() {
             )}
           </div>
 
-          {/* ===== MOBİL MƏRKƏZ — BURADA USER GÖRÜNƏCƏK ===== */}
           <div className="flex items-center lg:hidden">
             {user ? (
               <div className="flex items-center gap-2">
@@ -166,7 +162,6 @@ function Navbar() {
             )}
           </div>
 
-          {/* ===== FAVORİTLƏR — HƏM MOBİL, HƏM DESKTOP ===== */}
           <div className="headerRight flex gap-[10px] relative">
             <button
               className="p-[6px_8px] rounded-[5px] bg-[#E21743] text-white flex gap-[6px] justify-center items-center text-[14px] font-semibold leading-[14px]"
@@ -182,9 +177,7 @@ function Navbar() {
         </div>
 
         <nav className="h-[95px] flex items-center justify-between px-4 lg:px-44 shadow-[0_10px_10px_0_rgba(0,0,0,0.03)]">
-          {/* MOBİL MENU */}
           <div className="flex items-center justify-between w-full lg:hidden">
-            {/* LOGO */}
             <Link to="/">
               <img
                 className="w-[140px] h-auto"
@@ -193,7 +186,6 @@ function Navbar() {
               />
             </Link>
 
-            {/* SOCIAL ICONS */}
             <div className="flex gap-[18px]">
               <Link>
                 <FaceBook />
@@ -420,14 +412,11 @@ function Navbar() {
             </Link>
           </div>
         </nav>
-        {/* === MOBILE RIGHT SLIDE MENU === */}
-        {/* MOBILE MENU */}
         <div
           className={`fixed top-0 right-0 h-full w-[320px] bg-white shadow-xl z-[99999]
   transform transition-transform duration-300 
   ${isMenuOpen ? "translate-x-0" : "translate-x-full"}`}
         >
-          {/* HEADER */}
           <div className="flex items-center justify-between px-5 py-6 border-b border-gray-200">
             <h2 className="text-[20px] font-bold text-[#052841]">
               Tez keçidlər
@@ -440,9 +429,7 @@ function Navbar() {
             </button>
           </div>
 
-          {/* MENU ITEMS */}
           <div className="flex flex-col px-5 py-4">
-            {/* USER LOGOUT */}
             {user && (
               <button
                 onClick={() => {
@@ -454,7 +441,6 @@ function Navbar() {
                 Çıxış et
               </button>
             )}
-            {/* Ana Səhifə */}
             <Link
               to="/"
               onClick={() => setIsMenuOpen(false)}
@@ -463,10 +449,8 @@ function Navbar() {
               Ana Səhifə
             </Link>
 
-            {/* ƏMLAK */}
             <div className="border-b border-gray-100 pb-1">
               <div className="w-full flex justify-between items-center py-3">
-                {/* Sol tərəf — Əmlak səhifəsinə yönləndirir */}
                 <Link
                   to="/possessions"
                   onClick={() => setIsMenuOpen(false)}
@@ -475,7 +459,6 @@ function Navbar() {
                   Əmlak
                 </Link>
 
-                {/* Sağ tərəf — submenu açıb bağlayır */}
                 <button
                   onClick={() =>
                     setOpenSubMenu(openSubMenu === "emlak" ? null : "emlak")
@@ -486,7 +469,6 @@ function Navbar() {
                 </button>
               </div>
 
-              {/* Submenu */}
               <div
                 className={`overflow-hidden transition-all duration-300 pl-3 
       ${openSubMenu === "emlak" ? "max-h-40" : "max-h-0"}`}
@@ -515,7 +497,6 @@ function Navbar() {
               </div>
             </div>
 
-            {/* Şirkət haqqında */}
             <Link
               to="/about"
               onClick={() => setIsMenuOpen(false)}
@@ -524,10 +505,8 @@ function Navbar() {
               Şirkət haqqında
             </Link>
 
-            {/* Xidmətlərimiz */}
             <div className="border-b border-gray-100 pb-1">
               <div className="w-full flex justify-between items-center py-3">
-                {/* Sol tərəf — xidmət səhifəsinə yönləndirir */}
                 <Link
                   to="/service"
                   onClick={() => setIsMenuOpen(false)}
@@ -536,7 +515,6 @@ function Navbar() {
                   Xidmət
                 </Link>
 
-                {/* Sağ tərəf — submenu açıb bağlayır */}
                 <button
                   onClick={() =>
                     setOpenSubMenu(openSubMenu === "xidmet" ? null : "xidmet")
@@ -580,7 +558,6 @@ function Navbar() {
               </div>
             </div>
 
-            {/* Extras */}
             <Link
               to="/contact"
               onClick={() => setIsMenuOpen(false)}
@@ -604,7 +581,6 @@ function Navbar() {
             </Link>
           </div>
 
-          {/* FOOTER */}
           <div className="px-5 py-4 border-t border-gray-200">
             <p className="text-[#052841] font-bold text-[15px]">
               Müştəri Xidmətləri

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom"; // ✅ Query oxumaq üçün
+import { useLocation } from "react-router-dom"; 
 import BackGroundSec from "../../components/backgroundSec";
 import PrintSec from "../../components/prinntSec";
 import { FaThLarge, FaList } from "react-icons/fa";
@@ -9,23 +9,21 @@ import { getAllCompanies } from "../../services";
 import SearchFilter from "../../components/searchFilter/searchFilter";
 import Pagination from "../../components/pagination/pagination";
 import { Player } from "@lottiefiles/react-lottie-player";
-import emptyAnimation from "../../animations/empty.json"; // Lottie JSON
+import emptyAnimation from "../../animations/empty.json"; 
 
 function Possessions() {
   const [view, setView] = useState("grid");
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]); // ✅ yeni state
+  const [filteredProducts, setFilteredProducts] = useState([]); 
   const [up, setUp] = useState(false);
   const [sortOption, setSortOption] = useState("");
-
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
-  const location = useLocation(); // ✅ URL parametrlər
+  const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
-  // 🔹 Məhsulları yüklə
   useEffect(() => {
     (async () => {
       try {
@@ -37,11 +35,9 @@ function Possessions() {
     })();
   }, [up]);
 
-  // 🔹 SearchSection-dan gələn filterləri tətbiq et
   useEffect(() => {
     if (products.length === 0) return;
 
-    // 🔹 Əgər heç bir filter göndərilməyibsə, bütün məhsulları göstər
     if (!location.search) {
       setFilteredProducts(products);
       return;
@@ -68,14 +64,12 @@ function Possessions() {
       );
     }
 
-    // Əmlak növü (satılır / icarə)
     if (activeTab === "forSale") {
       filtered = filtered.filter((p) => p.transactionType === "Satışda");
     } else if (activeTab === "forRent") {
       filtered = filtered.filter((p) => p.transactionType === "Kirayə");
     }
 
-    // Qiymət
     if (priceMin)
       filtered = filtered.filter(
         (p) => parseInt(p.price.replace(/[^\d]/g, ""), 10) >= priceMin
@@ -85,20 +79,16 @@ function Possessions() {
         (p) => parseInt(p.price.replace(/[^\d]/g, ""), 10) <= priceMax
       );
 
-    // Ölçü
     if (sizeMin)
       filtered = filtered.filter((p) => parseInt(p.size) >= parseInt(sizeMin));
     if (sizeMax)
       filtered = filtered.filter((p) => parseInt(p.size) <= parseInt(sizeMax));
 
-    // Əmlak növü
     if (propertyType)
       filtered = filtered.filter((p) => p.propertyType === propertyType);
 
-    // Otaq sayı
     if (rooms) filtered = filtered.filter((p) => String(p.rooms) === rooms);
 
-    // Mərtəbə sayı
     if (floor) {
       console.log("Floor filter:", floor);
       filtered = filtered.filter((p) => {
@@ -114,7 +104,6 @@ function Possessions() {
     setFilteredProducts(filtered);
   }, [products, location.search]);
 
-  // 🔹 Sort sistemi (sənin orijinal uzun versiyan kimi)
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (sortOption === "price-asc") {
       const priceA = parseInt(a.price.replace(/[^\d]/g, ""), 10) || 0;
@@ -143,7 +132,6 @@ function Possessions() {
     return 0;
   });
 
-  // 🔹 Pagination eyni qalır
   const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedData = sortedProducts.slice(
@@ -155,7 +143,6 @@ function Possessions() {
     setCurrentPage(1);
   }, [filteredProducts]);
 
-  // 🔹 Render hissə
 
   return (
     <>

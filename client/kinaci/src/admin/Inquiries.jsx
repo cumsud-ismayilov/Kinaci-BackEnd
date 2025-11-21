@@ -18,8 +18,7 @@ function Inquiries() {
   const [inquiries, setInquiries] = useState([]);
   const [search, setSearch] = useState("");
 
-    const API_URL = import.meta.env.VITE_API_URL;
-
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchInquiries = async () => {
@@ -52,8 +51,9 @@ function Inquiries() {
       i.email?.toLowerCase().includes(search.toLowerCase()) ||
       i.message?.toLowerCase().includes(search.toLowerCase())
   );
-  return     <Box>
-      <Typography variant="h4" mb={3}   sx={{ color: "#ffffff" }}>
+  return (
+    <Box>
+      <Typography variant="h4" mb={3} sx={{ color: "#ffffff" }}>
         Inquiries Management
       </Typography>
 
@@ -89,7 +89,10 @@ function Inquiries() {
                   <TableCell>{inq.productId}</TableCell>
 
                   <TableCell align="right">
-                    <IconButton color="error" onClick={() => handleDelete(inq._id)}>
+                    <IconButton
+                      color="error"
+                      onClick={() => handleDelete(inq._id)}
+                    >
                       <DeleteIcon />
                     </IconButton>
                   </TableCell>
@@ -103,10 +106,10 @@ function Inquiries() {
               </TableRow>
             )}
           </TableBody>
-
         </Table>
       </TableContainer>
-    </Box>;
+    </Box>
+  );
 }
 
 export default Inquiries;
