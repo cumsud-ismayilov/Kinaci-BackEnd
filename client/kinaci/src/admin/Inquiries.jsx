@@ -53,7 +53,7 @@ function Inquiries() {
       i.message?.toLowerCase().includes(search.toLowerCase())
   );
   return     <Box>
-      <Typography variant="h4" mb={3}>
+      <Typography variant="h4" mb={3}   sx={{ color: "#ffffff" }}>
         Inquiries Management
       </Typography>
 

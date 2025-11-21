@@ -61,7 +61,7 @@ function AdminComments() {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom   sx={{ color: "#ffffff" }}>
         Comments Management
       </Typography>
 

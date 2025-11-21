@@ -106,7 +106,7 @@ function Properties() {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom   sx={{ color: "#ffffff" }}>
         Properties Management (MockAPI)
       </Typography>
 

@@ -21,14 +21,16 @@ import HelpIcon from "@mui/icons-material/Help";
 
 const drawerWidth = 240;
 
-// 1️⃣ Custom MUI theme
+// 🌙 Dark Mode Theme
 const theme = createTheme({
   palette: {
+    mode: "dark", // BURDA DARK MODE ACTIVEDIR
     primary: {
-      main: "#1976d2", // AppBar rəngi
+      main: "#90caf9",
     },
-    secondary: {
-      main: "#f50057",
+    background: {
+      default: "#121212",
+      paper: "#1e1e1e",
     },
   },
   typography: {
@@ -43,9 +45,16 @@ function AdminLayout() {
     <ThemeProvider theme={theme}>
       <Box sx={{ display: "flex" }}>
         {/* Top AppBar */}
-        <AppBar position="fixed">
+        <AppBar
+          position="fixed"
+          color="primary"
+          sx={{
+            width: `calc(100% - ${drawerWidth}px)`,
+            ml: `${drawerWidth}px`,
+          }}
+        >
           <Toolbar>
-            <Typography variant="h6" noWrap component="div">
+            <Typography variant="h6" component="div">
               Admin Panel
             </Typography>
           </Toolbar>
@@ -60,6 +69,7 @@ function AdminLayout() {
             [`& .MuiDrawer-paper`]: {
               width: drawerWidth,
               boxSizing: "border-box",
+              backgroundColor: "#1e1e1e", // Drawer dark background
             },
           }}
         >
@@ -105,7 +115,15 @@ function AdminLayout() {
         </Drawer>
 
         {/* Main Content */}
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            backgroundColor: "#121212",
+            minHeight: "100vh",
+          }}
+        >
           <Toolbar />
           <Outlet />
         </Box>

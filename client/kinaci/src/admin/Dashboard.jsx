@@ -40,7 +40,7 @@ function Dashboard() {
 
   return (
     <Box sx={{ p: 2 }}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom   sx={{ color: "#ffffff" }}>
         Dashboard
       </Typography>
 

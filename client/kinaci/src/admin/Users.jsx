@@ -65,7 +65,7 @@ const handleDelete = async (id) => {
   );
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom   sx={{ color: "#ffffff" }}>
         Users
       </Typography>
 

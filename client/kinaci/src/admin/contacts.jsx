@@ -50,7 +50,7 @@ function contacts() {
 
   return (
     <div>
-      <Typography variant="h5" mb={2}>
+      <Typography variant="h5" mb={2}   sx={{ color: "#ffffff" }}>
         Contact Form Göndərişləri
       </Typography>
       <TableContainer component={Paper}>
