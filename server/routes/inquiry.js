@@ -3,7 +3,6 @@ import Inquiry from "../models/Inquiry.js";
 
 const router = express.Router();
 
-// ➤ Yeni inquiry yarat
 router.post("/", async (req, res) => {
   try {
     const newInquiry = new Inquiry(req.body);
@@ -14,7 +13,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// ➤ Bütün inquiry-ləri əldə et
 router.get("/", async (req, res) => {
   try {
     const inquiries = await Inquiry.find().sort({ createdAt: -1 });
@@ -24,13 +22,12 @@ router.get("/", async (req, res) => {
   }
 });
 
-// ➤ DELETE inquiry
 router.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const deleted = await Inquiry.findByIdAndDelete(id);
     if (!deleted) return res.status(404).json({ message: "Sorğu tapılmadı" });
-    res.status(200).json({ message: "Sorğu silindi ✅" });
+    res.status(200).json({ message: "Sorğu silindi" });
   } catch (error) {
     res.status(500).json({ message: "Sorğu silinərkən xəta baş verdi", error });
   }

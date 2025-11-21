@@ -17,10 +17,10 @@ router.post("/register", async (req, res) => {
 
     await User.create({ fullName, email, password: hashedPassword, phone });
 
-    res.json({ message: "Qeydiyyat uğurlu ✅" });
+    res.json({ message: "Qeydiyyat uğurlu " });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Server xətası ❌" });
+    res.status(500).json({ message: "Server xətası " });
   }
 });
 
@@ -30,24 +30,24 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "Email tapılmadı ❌" });
+    if (!user) return res.status(400).json({ message: "Email tapılmadı " });
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch)
-      return res.status(400).json({ message: "Şifrə yanlışdır ❌" });
+      return res.status(400).json({ message: "Şifrə yanlışdır " });
 
     res.json({
       message: "Giriş uğurludur ✅",
       user: {
         _id: user._id,
-        name: user.fullName, // fullname burada olmalıdır
+        name: user.fullName, 
         email: user.email,
         phone: user.phone,
       },
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Server xətası ❌" });
+    res.status(500).json({ message: "Server xətası " });
   }
 });
 

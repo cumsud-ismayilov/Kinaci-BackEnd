@@ -4,10 +4,9 @@ import User from "../models/users.js";
 
 const router = express.Router();
 
-// GET /api/users → bütün istifadəçiləri gətir
 router.get("/", async (req, res) => {
   try {
-    const users = await User.find({}, "-password"); // password göstərməyək
+    const users = await User.find({}, "-password"); 
     res.json(users);
   } catch (err) {
     res.status(500).json({ error: err.message });

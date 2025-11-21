@@ -3,7 +3,6 @@ import Comment from "../models/Comment.js";
 
 const router = express.Router();
 
-// 1️⃣ Yeni şərh əlavə et
 router.post("/", async (req, res) => {
   try {
     const comment = new Comment(req.body);
@@ -14,7 +13,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// 2️⃣ Bütün şərhləri gətir (Admin panel üçün)
 router.get("/", async (req, res) => {
   try {
     const comments = await Comment.find();
@@ -24,7 +22,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// 3️⃣ Xəbərə görə şərhləri gətir (NewsDetail səhifəsi üçün)
 router.get("/news/:newsId", async (req, res) => {
   try {
     const comments = await Comment.find({ newsId: req.params.newsId });
@@ -34,7 +31,6 @@ router.get("/news/:newsId", async (req, res) => {
   }
 });
 
-// 4️⃣ Şərhi sil
 router.delete("/:id", async (req, res) => {
   try {
     const comment = await Comment.findById(req.params.id);
