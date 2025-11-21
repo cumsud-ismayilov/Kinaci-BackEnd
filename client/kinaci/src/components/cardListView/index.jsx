@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import CardSwipperv2 from "../cardSwipperv2";
 import { useNavigate } from "react-router";
 import { FavoriteContext } from "../../context/favoriteContext";
@@ -7,39 +7,37 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import Bath from "../../icons/bath";
 import HomeArea from "../../icons/homeArea";
 import Homeicons from "../../icons/homeicons";
+import LoginRegisterModal from "../../components/loginAndregister";
 
-function CardListView({data}) {
+function CardListView({ data }) {
+  const [isContactOpen, setIsContactOpen] = useState(false);
   const { favorites, setFavorites } = useContext(FavoriteContext);
   const navigate = useNavigate();
 
-const toggleFavorite = (item) => {
-  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const toggleFavorite = (item) => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
 
-  if (!storedUser) {
-    toast.warning("Favorilərə əlavə etmək üçün daxil olun!");
-    return;
-  }
+    if (!storedUser) {
+      toast.warning("Favorilərə əlavə etmək üçün daxil olun!");
+      return;
+    }
 
-  const { id, title } = item;
-  if (!id || !title) return;
+    const { id, title } = item;
+    if (!id || !title) return;
 
-  const isFav = favorites.some((fav) => fav.id === id);
-  let updatedFavs = [...favorites];
+    const isFav = favorites.some((fav) => fav.id === id);
+    let updatedFavs = [...favorites];
 
-  if (isFav) {
-    updatedFavs = updatedFavs.filter((fav) => fav.id !== id);
-    toast.info(`Favorilərdən çıxarıldı`);
-  } else {
-    updatedFavs.push({ id, title });
-    toast.success(`Favorilərə əlavə olundu`);
-  }
+    if (isFav) {
+      updatedFavs = updatedFavs.filter((fav) => fav.id !== id);
+      toast.info(`Favorilərdən çıxarıldı`);
+    } else {
+      updatedFavs.push({ id, title });
+      toast.success(`Favorilərə əlavə olundu`);
+    }
 
-  setFavorites(updatedFavs);
-};
-
-
-
-
+    setFavorites(updatedFavs);
+  };
 
   return (
     <div className="max-w-5xl mx-auto grid lg:grid-cols-1 md:grid-cols-2 grid-cols-1 gap-[20px]">
@@ -47,7 +45,10 @@ const toggleFavorite = (item) => {
         const isFav = favorites.some((fav) => fav.id === item.id);
 
         return (
-          <div key={item.id} className="bg-[#fff] rounded-[7px] relative flex  overflow-hidden">
+          <div
+            key={item.id}
+            className="bg-[#fff] rounded-[7px] relative flex  overflow-hidden"
+          >
             <div
               className="relative w-[36%] min-h-[200px] cursor-pointer"
               onClick={() => navigate(`/product/${item.id}`)}
@@ -98,7 +99,7 @@ const toggleFavorite = (item) => {
               </div>
 
               <div className="grid grid-cols-2 gap-[6px] pt-[20px]">
-                <button className="text-[#212529] border border-[#212529] rounded-[5px] p-[6px_32px] text-[15px] cursor-pointer">
+                <button onClick={() => setIsContactOpen(true)} className="text-[#212529] border border-[#212529] rounded-[5px] p-[6px_32px] text-[15px] cursor-pointer">
                   Hızlı iletişim
                 </button>
                 <button
@@ -112,8 +113,11 @@ const toggleFavorite = (item) => {
           </div>
         );
       })}
+      {isContactOpen && (
+        <LoginRegisterModal closeModal={() => setIsContactOpen(false)} />
+      )}
     </div>
-  )
+  );
 }
 
-export default CardListView
+export default CardListView;

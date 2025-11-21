@@ -18,6 +18,7 @@ function Possessions() {
   const [up, setUp] = useState(false);
   const [sortOption, setSortOption] = useState("");
 
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 

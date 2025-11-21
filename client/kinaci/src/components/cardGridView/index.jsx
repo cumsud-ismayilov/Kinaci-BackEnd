@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import CardSwipperv2 from "../cardSwipperv2";
 import { useNavigate } from "react-router";
 import { FavoriteContext } from "../../context/favoriteContext";
@@ -7,36 +7,37 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import Bath from "../../icons/bath";
 import HomeArea from "../../icons/homeArea";
 import Homeicons from "../../icons/homeicons";
+import LoginRegisterModal from "../../components/loginAndregister";
 
 function CardGridView({ data }) {
+  const [isContactOpen, setIsContactOpen] = useState(false);
   const { favorites, setFavorites } = useContext(FavoriteContext);
   const navigate = useNavigate();
 
-const toggleFavorite = (item) => {
-  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const toggleFavorite = (item) => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
 
-  if (!storedUser) {
-    toast.warning("Favorilərə əlavə etmək üçün daxil olun!");
-    return;
-  }
+    if (!storedUser) {
+      toast.warning("Favorilərə əlavə etmək üçün daxil olun!");
+      return;
+    }
 
-  const { id, title } = item;
-  if (!id || !title) return;
+    const { id, title } = item;
+    if (!id || !title) return;
 
-  const isFav = favorites.some((fav) => fav.id === id);
-  let updatedFavs = [...favorites];
+    const isFav = favorites.some((fav) => fav.id === id);
+    let updatedFavs = [...favorites];
 
-  if (isFav) {
-    updatedFavs = updatedFavs.filter((fav) => fav.id !== id);
-    toast.info(`Favorilərdən çıxarıldı`);
-  } else {
-    updatedFavs.push({ id, title });
-    toast.success(`Favorilərə əlavə olundu`);
-  }
+    if (isFav) {
+      updatedFavs = updatedFavs.filter((fav) => fav.id !== id);
+      toast.info(`Favorilərdən çıxarıldı`);
+    } else {
+      updatedFavs.push({ id, title });
+      toast.success(`Favorilərə əlavə olundu`);
+    }
 
-  setFavorites(updatedFavs);
-};
-
+    setFavorites(updatedFavs);
+  };
 
   return (
     <div className="max-w-5xl mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[20px]">
@@ -94,7 +95,10 @@ const toggleFavorite = (item) => {
                 </button>
               </div>
               <div className="flex justify-between">
-                <button className="text-[#212529] border border-[#212529] rounded-[5px] p-[6px_32px] text-[15px] cursor-pointer max-sm:w-[48%] max-sm:p-[10px]">
+                <button
+                  onClick={() => setIsContactOpen(true)}
+                  className="text-[#212529] border border-[#212529] rounded-[5px] p-[6px_32px] text-[15px] cursor-pointer max-sm:w-[48%] max-sm:p-[10px]"
+                >
                   Hızlı iletişim
                 </button>
                 <button
@@ -104,11 +108,13 @@ const toggleFavorite = (item) => {
                   Detaylar
                 </button>
               </div>
-
             </div>
           </div>
         );
       })}
+      {isContactOpen && (
+        <LoginRegisterModal closeModal={() => setIsContactOpen(false)} />
+      )}
     </div>
   );
 }
