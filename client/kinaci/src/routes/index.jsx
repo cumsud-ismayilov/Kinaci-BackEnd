@@ -23,9 +23,10 @@ import Dashboard from "../admin/Dashboard";
 import Users from "../admin/Users";
 import Properties from "../admin/Properties";
 import AdminContacts from "../admin/contacts";
-import AdminInquiries from "../admin/Inquiries"
+import AdminInquiries from "../admin/Inquiries";
 import NewsDetail from "../pages/newsCardDetail";
 import AdminComments from "../admin/comments";
+import VerifyPage from "../pages/verifyPage/VerifyPage";
 export const routers = createBrowserRouter([
   {
     path: "/",
@@ -107,6 +108,10 @@ export const routers = createBrowserRouter([
       {
         path: "/support",
         element: <Support />,
+      },
+      {
+        path: "/verify/:token",
+        element: <VerifyPage />,
       },
     ],
   },

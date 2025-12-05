@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify";
 import { createPortal } from "react-dom";
-import KinaciLogo from "../../assets/kinaciLogo.png"
+import KinaciLogo from "../../assets/kinaciLogo.png";
+import { useNavigate } from "react-router-dom"; // verify sonrası yönləndirmə üçün
 
 function index({ closeModal }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -15,15 +16,16 @@ function index({ closeModal }) {
   const [phone, setPhone] = useState("");
 
   const API_URL = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
-
     return () => {
       document.body.style.overflow = "auto";
     };
   }, []);
 
+  // REGISTER
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
@@ -32,43 +34,56 @@ function index({ closeModal }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fullName,
-          phone, 
+          phone,
           email,
           password,
+          
         }),
       });
+      console.log({ fullName, email, phone, password });
+
 
       const data = await res.json();
-      console.log(data);
 
       if (res.ok) {
-        toast.success("Qeydiyyat uğurludur ");
+        toast.success(
+          "Qeydiyyat uğurludur! Email-ə göndərilən link ilə hesabınızı təsdiqləyin."
+        );
         setIsLogin(true);
       } else {
-        toast.error(data.message || "Xəta baş verdi ");
+        toast.error(data.message || "Xəta baş verdi");
       }
     } catch (error) {
-      toast.error("Serverə qoşulmaq olmur ");
+      toast.error("Serverə qoşulmaq olmur");
     }
   };
 
+  // LOGIN
   const handleLogin = async (e) => {
     e.preventDefault();
-    const res = await fetch(`${API_URL}/api/auth/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: loginEmail, password: loginPassword }),
-    });
+    try {
+      const res = await fetch(`${API_URL}/api/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: loginEmail, password: loginPassword }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (res.ok) {
-      localStorage.setItem("user", JSON.stringify(data.user));
-      // toast.success("Uğurla daxil oldunuz ");
-      closeModal();
-      window.location.reload();
-    } else {
-      toast.error(data.message);
+      if (res.ok) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+        closeModal();
+        window.location.reload();
+      } else {
+        // 403 → email təsdiqi lazım olduğunu xəbərdar et
+        if (res.status === 403) {
+          toast.warning(data.message);
+        } else {
+          toast.error(data.message);
+        }
+      }
+    } catch (err) {
+      toast.error("Server xətası");
     }
   };
 
@@ -94,6 +109,7 @@ function index({ closeModal }) {
             ✕
           </button>
 
+          {/* LOGIN */}
           {isLogin && (
             <motion.div
               key="login"
@@ -108,14 +124,10 @@ function index({ closeModal }) {
                 alt="kinaciLogo"
               />
               <h2 className="text-2xl font-bold mb-6 mt-6">Hesab</h2>
-              <form
-                className="flex flex-col gap-[6px]"
-                action=""
-                onSubmit={handleLogin}
-              >
+              <form className="flex flex-col gap-[6px]" onSubmit={handleLogin}>
                 <label className="block">E-Mail</label>
                 <input
-                  className="input my-2.5 px-2.5 py-4  rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full flex text-xs h-[50px]  "
+                  className="input my-2.5 px-2.5 py-4 rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full text-xs h-[50px]"
                   type="email"
                   placeholder="johndoe@john.doe"
                   value={loginEmail}
@@ -124,13 +136,13 @@ function index({ closeModal }) {
 
                 <label className="block">Şifrə</label>
                 <input
-                  className="input input my-2.5 px-2.5 py-4  rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full flex text-xs h-[50px] "
+                  className="input my-2.5 px-2.5 py-4 rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full text-xs h-[50px]"
                   type="password"
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
                 />
 
-                <button className="py-3 px-8 rounded-selectBtn w-full font-semibold gap-3 bg-orange-500 text-white hover:bg-orange-600 cursor-pointer rounded-xl">
+                <button className="py-3 px-8 w-full font-semibold gap-3 bg-orange-500 text-white hover:bg-orange-600 cursor-pointer rounded-xl">
                   Daxil ol
                 </button>
               </form>
@@ -147,6 +159,7 @@ function index({ closeModal }) {
             </motion.div>
           )}
 
+          {/* REGISTER */}
           {!isLogin && (
             <motion.div
               key="register"
@@ -161,43 +174,43 @@ function index({ closeModal }) {
                 alt="kinaciLogo"
               />
               <h2 className="text-2xl font-bold mb-6 mt-6">Hesab</h2>
-              <form
-                className="flex flex-col gap-[6px]"
-                action=""
-                onSubmit={handleRegister}
-              >
+              <form className="flex flex-col gap-[6px]" onSubmit={handleRegister}>
                 <label className="block">Ad & Soyad</label>
                 <input
-                  className="input input my-2.5 px-2.5 py-4  rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full flex text-xs h-[50px] "
+                  className="input my-2.5 px-2.5 py-4 rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full text-xs h-[50px]"
                   type="text"
                   placeholder="John Doe"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                 />
-                <label className="block">Telefon</label> {/* Yeni input */}
+
+                <label className="block">Telefon</label>
                 <input
-                  className="input input my-2.5 px-2.5 py-4  rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full flex text-xs h-[50px] "
+                  className="input my-2.5 px-2.5 py-4 rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full text-xs h-[50px]"
                   type="text"
                   placeholder="0501234567"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
+
                 <label className="block">E-Mail</label>
                 <input
-                  className="input input my-2.5 px-2.5 py-4  rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full flex text-xs h-[50px] "
+                  className="input my-2.5 px-2.5 py-4 rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full text-xs h-[50px]"
                   type="email"
                   placeholder="johndoe@john.doe"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
+
                 <label className="block">Şifrə</label>
                 <input
-                  className="input input my-2.5 px-2.5 py-4  rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full flex text-xs h-[50px] "
+                  className="input my-2.5 px-2.5 py-4 rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full text-xs h-[50px]"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <button className="py-3 px-8 rounded-selectBtn w-full font-semibold gap-3 bg-orange-500 text-white hover:bg-orange-600 cursor-pointer rounded-xl">
+
+                <button className="py-3 px-8 w-full font-semibold gap-3 bg-orange-500 text-white hover:bg-orange-600 cursor-pointer rounded-xl">
                   Qeydiyyatdan keç
                 </button>
               </form>

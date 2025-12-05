@@ -1,131 +1,96 @@
+import { Outlet, Link, useLocation } from "react-router-dom";
+import { Menu } from "lucide-react";
+import { useState } from "react";
 
-import { Outlet, Link } from "react-router-dom";
+// SHADCN UI
 import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Toolbar,
-  AppBar,
-  Typography,
-  Box,
-} from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import PeopleIcon from "@mui/icons-material/People";
-import HomeWorkIcon from "@mui/icons-material/HomeWork";
-import MailIcon from "@mui/icons-material/Mail";
-import CommentIcon from "@mui/icons-material/Comment";
-import HelpIcon from "@mui/icons-material/Help";
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
-const drawerWidth = 240;
+import { Button } from "@/components/ui/button";
 
-const theme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#90caf9",
-    },
-    background: {
-      default: "#121212",
-      paper: "#1e1e1e",
-    },
-  },
-  typography: {
-    h6: {
-      fontWeight: 600,
-    },
-  },
-});
+const menuItems = [
+  { title: "Dashboard", path: "/admin", icon: "📊" },
+  { title: "Users", path: "/admin/users", icon: "👤" },
+  { title: "Properties", path: "/admin/properties", icon: "🏘️" },
+  { title: "Contacts", path: "/admin/contacts", icon: "✉️" },
+  { title: "Comments", path: "/admin/comments", icon: "💬" },
+  { title: "Inquiries", path: "/admin/inquiries", icon: "❓" },
+];
 
-function AdminLayout() {
+export default function AdminLayout() {
+  const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
+
   return (
-    <ThemeProvider theme={theme}>
-      <Box sx={{ display: "flex" }}>
-        <AppBar
-          position="fixed"
-          color="primary"
-          sx={{
-            width: `calc(100% - ${drawerWidth}px)`,
-            ml: `${drawerWidth}px`,
-          }}
-        >
-          <Toolbar>
-            <Typography variant="h6" component="div">
-              Admin Panel
-            </Typography>
-          </Toolbar>
-        </AppBar>
+    <div className="flex min-h-screen bg-gray-100">
 
-        <Drawer
-          variant="permanent"
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            [`& .MuiDrawer-paper`]: {
-              width: drawerWidth,
-              boxSizing: "border-box",
-              backgroundColor: "#1e1e1e",
-            },
-          }}
-        >
-          <Toolbar />
-          <List>
-            <ListItem button component={Link} to="/admin">
-              <ListItemIcon>
-                <DashboardIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dashboard" />
-            </ListItem>
-            <ListItem button component={Link} to="/admin/users">
-              <ListItemIcon>
-                <PeopleIcon />
-              </ListItemIcon>
-              <ListItemText primary="Users" />
-            </ListItem>
-            <ListItem button component={Link} to="/admin/properties">
-              <ListItemIcon>
-                <HomeWorkIcon />
-              </ListItemIcon>
-              <ListItemText primary="Properties" />
-            </ListItem>
-            <ListItem button component={Link} to="/admin/contacts">
-              <ListItemIcon>
-                <MailIcon />
-              </ListItemIcon>
-              <ListItemText primary="Contacts" />
-            </ListItem>
-            <ListItem button component={Link} to="/admin/comments">
-              <ListItemIcon>
-                <CommentIcon />
-              </ListItemIcon>
-              <ListItemText primary="Comments" />
-            </ListItem>
-            <ListItem button component={Link} to="/admin/inquiries">
-              <ListItemIcon>
-                <HelpIcon />
-              </ListItemIcon>
-              <ListItemText primary="Inquiries" />
-            </ListItem>
-          </List>
-        </Drawer>
+      {/* DESKTOP SIDEBAR */}
+      <aside className="hidden lg:block w-64 bg-white shadow-md">
+        <div className="p-6 text-xl font-bold border-b">Admin Panel</div>
 
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            p: 3,
-            backgroundColor: "#121212",
-            minHeight: "100vh",
-          }}
-        >
-          <Toolbar />
-          <Outlet />
-        </Box>
-      </Box>
-    </ThemeProvider>
+        <nav className="p-4 space-y-2">
+          {menuItems.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium 
+                ${
+                  pathname === item.path
+                    ? "bg-blue-600 text-white"
+                    : "text-gray-700 hover:bg-gray-200"
+                }
+              `}
+            >
+              <span>{item.icon}</span>
+              {item.title}
+            </Link>
+          ))}
+        </nav>
+      </aside>
+
+      {/* MOBILE SIDEBAR */}
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetTrigger asChild>
+          <Button className="m-4 lg:hidden">
+            <Menu className="w-5 h-5" />
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left" className="w-64 p-0">
+          <SheetHeader>
+            <SheetTitle className="p-4 border-b text-xl">Admin Panel</SheetTitle>
+          </SheetHeader>
+
+          <nav className="p-4 space-y-2">
+            {menuItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                onClick={() => setOpen(false)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium 
+                  ${
+                    pathname === item.path
+                      ? "bg-blue-600 text-white"
+                      : "text-gray-700 hover:bg-gray-200"
+                  }
+                `}
+              >
+                <span>{item.icon}</span>
+                {item.title}
+              </Link>
+            ))}
+          </nav>
+        </SheetContent>
+      </Sheet>
+
+      {/* CONTENT */}
+      <main className="flex-1 p-6">
+        <Outlet />
+      </main>
+    </div>
   );
 }
-
-export default AdminLayout;

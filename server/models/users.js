@@ -6,6 +6,7 @@ const UserSchema = new mongoose.Schema({
   phone: String,
   role: { type: String, default: "User" },
   password: String,
+  isVerified: { type: Boolean, default: false },
 });
 
 export default mongoose.model("User", UserSchema);

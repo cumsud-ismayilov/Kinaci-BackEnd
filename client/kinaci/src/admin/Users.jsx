@@ -1,140 +1,44 @@
-import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-  IconButton,
-  TextField,
-} from "@mui/material";
+import { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
-function Users() {
-  const [users, setUsers] = useState([]);
-  const [search, setSearch] = useState("");
-
-  const API_URL = import.meta.env.VITE_API_URL;
+export default function Users() {
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch(`${API_URL}/api/users`)
-      .then((res) => res.json())
-      .then((data) => setUsers(data))
-      .catch((err) => console.error(err));
+    fetch("/api/users")
+      .then(r => r.json())
+      .then(d => setData(d));
   }, []);
 
-const handleDelete = async (id) => {
-  try {
-    await fetch(`${API_URL}/api/users/${id}`, { method: "DELETE" });
-    setUsers(users.filter((user) => user._id !== id));
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-  const handleEdit = async (user) => {
-  const fullName = prompt("Name:", user.fullName);
-  const email = prompt("Email:", user.email);
-  const role = prompt("Role (Admin/User):", user.role);
-
-  if (fullName && email && role) {
-    try {
-      const res = await fetch(`${API_URL}/api/users/${user._id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fullName, email, role }),
-      });
-      const updatedUser = await res.json();
-      setUsers(users.map(u => (u._id === updatedUser._id ? updatedUser : u)));
-    } catch (err) {
-      console.error(err);
-    }
-  }
-};
-
-
-  const filteredUsers = users.filter(
-    (user) =>
-      user.fullName.toLowerCase().includes(search.toLowerCase()) ||
-      user.email.toLowerCase().includes(search.toLowerCase())
-  );
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom   sx={{ color: "#ffffff" }}>
-        Users
-      </Typography>
+    <div>
+      <h1 className="text-2xl font-semibold mb-5">Users</h1>
 
-      <TextField
-        label="Search Users"
-        variant="outlined"
-        fullWidth
-        sx={{
-          mb: 2,
-          input: { color: "#fff" }, 
-          label: { color: "#90caf9" }, 
-          "& .MuiOutlinedInput-root": {
-            "& fieldset": { borderColor: "#555" }, 
-            "&:hover fieldset": { borderColor: "#90caf9" },
-            "&.Mui-focused fieldset": { borderColor: "#90caf9" },
-          },
-        }}
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white shadow rounded">
+          <thead>
+            <tr className="bg-gray-200 text-left">
+              <th className="p-3">Name</th>
+              <th className="p-3">Email</th>
+              <th className="p-3">Actions</th>
+            </tr>
+          </thead>
 
-      <TableContainer
-        component={Paper}
-        sx={{ bgcolor: "#1e1e1e", color: "#fff" }}
-      >
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Role</TableCell>
-              <TableCell align="right">Actions</TableCell>
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {filteredUsers.map((user) => (
-              <TableRow key={user._id}>
-                <TableCell>{user._id}</TableCell>
-                <TableCell>{user.fullName}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>{user.role}</TableCell>
-                <TableCell align="right">
-                  <IconButton color="primary" onClick={() => handleEdit(user)}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    color="error"
-                    onClick={() => handleDelete(user._id)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
+          <tbody>
+            {data.map((u) => (
+              <tr key={u._id} className="border-b">
+                <td className="p-3">{u.name}</td>
+                <td className="p-3">{u.email}</td>
+                <td className="p-3 flex gap-3">
+                  <EditIcon className="cursor-pointer text-blue-500" />
+                  <DeleteIcon className="cursor-pointer text-red-500" />
+                </td>
+              </tr>
             ))}
-
-            {filteredUsers.length === 0 && (
-              <TableRow>
-                <TableCell colSpan={5} align="center">
-                  No users found.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Box>
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }
-
-export default Users;

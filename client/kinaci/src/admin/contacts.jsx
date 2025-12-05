@@ -1,94 +1,18 @@
-import React, { useEffect, useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { useEffect, useState } from "react";
 
-function contacts() {
-  const [contacts, setContacts] = useState([]);
+export default function Contacts() {
+  const [data, setData] = useState([]);
 
-  const API_URL = import.meta.env.VITE_API_URL;
   useEffect(() => {
-    const fetchContacts = async () => {
-      try {
-        const res = await fetch(`${API_URL}/api/contact`);
-        const data = await res.json();
-        console.log("Backend cavabı:", data); 
-        setContacts(data); 
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchContacts();
+    fetch("/api/contacts")
+      .then(r => r.json())
+      .then(d => setData(d));
   }, []);
-
-  const handleDelete = async (id) => {
-    if (!window.confirm("Silmək istədiyinizə əminsiniz?")) return;
-
-    try {
-      const res = await fetch(`${API_URL}/api/contact/${id}`, {
-        method: "DELETE",
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        setContacts(contacts.filter((c) => c._id !== id));
-        alert(data.message); 
-      } else {
-        alert(data.message);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   return (
     <div>
-      <Typography variant="h5" mb={2}   sx={{ color: "#ffffff" }}>
-        Contact Form Göndərişləri
-      </Typography>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Ad & Soyad</TableCell>
-              <TableCell>Telefon</TableCell>
-              <TableCell>E-Mail</TableCell>
-              <TableCell>User ID</TableCell>
-              <TableCell>Göndərilmə Tarixi</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {contacts.map((contact) => (
-              <TableRow key={contact._id}>
-                <TableCell>{contact.name}</TableCell>
-                <TableCell>{contact.phone}</TableCell>
-                <TableCell>{contact.email}</TableCell>
-                <TableCell>{contact.userId || "-"}</TableCell>
-                <TableCell>
-                  {new Date(contact.createdAt).toLocaleString()}
-                </TableCell>
-                <TableCell>
-                  <button
-                    onClick={() => handleDelete(contact._id)}
-                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                  >
-                    Sil
-                  </button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <h1 className="text-2xl font-semibold mb-5">Contacts</h1>
+      {JSON.stringify(data, null, 2)}
     </div>
   );
 }
-
-export default contacts;
