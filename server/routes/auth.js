@@ -116,10 +116,10 @@ router.post("/login", async (req, res) => {
 
 // TEST EMAIL
 router.get("/test-email", async (req, res) => {
-  console.log("Test email route çağırıldı"); // <- ilk yoxlama
+  console.log("Test email route çağırıldı");
   try {
     const info = await sendEmail(
-      process.env.EMAIL_USER,
+      process.env.MAIL_FROM,
       "Test Email",
       "<h1>Salam!</h1>"
     );

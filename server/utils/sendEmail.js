@@ -1,28 +1,23 @@
 import nodemailer from "nodemailer";
 
-const createTransporter = async () => {
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
+const transporter = nodemailer.createTransport({
+  host: "smtp.sendgrid.net",
+  port: 587,
+  secure: false, // TLS istifadə etmək üçün false, STARTTLS avtomatik
+  auth: {
+    user: "apikey", // SendGrid SMTP üçün username həmişə "apikey"
+    pass: process.env.SENDGRID_API_KEY,
+  },
+});
 
-  try {
-    await transporter.verify();
-    console.log("Mail transporter ready");
-  } catch (err) {
-    console.warn("Mail transporter error:", err.message);
-  }
-
-  return transporter;
-};
+transporter.verify().then(
+  () => console.log("SendGrid transporter ready"),
+  (err) => console.warn("SendGrid transporter error:", err.message)
+);
 
 export const sendEmail = async (to, subject, html) => {
-  const transporter = await createTransporter();
   const info = await transporter.sendMail({
-    from: `"Kinaci" <${process.env.EMAIL_USER}>`,
+    from: process.env.MAIL_FROM,
     to,
     subject,
     html,
