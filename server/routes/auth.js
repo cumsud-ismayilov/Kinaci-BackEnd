@@ -116,19 +116,15 @@ router.post("/login", async (req, res) => {
 
 // TEST EMAIL
 router.get("/test-email", async (req, res) => {
-  console.log("Test email route çağırıldı");
   try {
-    const info = await sendEmail(
-      process.env.MAIL_FROM,
-      "Test Email",
-      "<h1>Salam!</h1>"
-    );
-    console.log("Email info:", info);
+    const info = await sendEmail(process.env.MAIL_FROM, "Test Email", "<h1>Salam!</h1>");
     res.send("Email göndərildi ✅");
   } catch (err) {
     console.log("Email xətası:", err);
     res.status(500).send("Email göndərmək olmadı ❌");
   }
 });
+
+
 
 export default router;

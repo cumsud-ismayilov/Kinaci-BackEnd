@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import authRoutes from "./routes/auth.js";
 import dotenv from "dotenv";
 dotenv.config();
+console.log("SENDGRID KEY:", process.env.SENDGRID_API_KEY);
+console.log("Loaded SENDGRID_API_KEY:", process.env.SENDGRID_API_KEY ? "YES" : "NO");
 
 const app = express();
 app.use(cors());
@@ -22,3 +24,8 @@ app.listen(PORT, () => console.log(`Server işə düşdü → http://localhost:$
 app.get("/", (req, res) => {
   res.send("API işləyir");
 });
+
+
+
+console.log("SENDGRID_API_KEY:", process.env.SENDGRID_API_KEY ? "OK" : "Missing");
+console.log("MAIL_FROM:", process.env.MAIL_FROM ? "OK" : "Missing");

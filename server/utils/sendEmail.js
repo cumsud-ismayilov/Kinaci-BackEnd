@@ -1,19 +1,15 @@
 import nodemailer from "nodemailer";
+import sgTransport from "nodemailer-sendgrid-transport";
+import dotenv from "dotenv";
+dotenv.config();
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.sendgrid.net",
-  port: 587,
-  secure: false, // TLS istifadə etmək üçün false, STARTTLS avtomatik
+const options = {
   auth: {
-    user: "apikey", // SendGrid SMTP üçün username həmişə "apikey"
-    pass: process.env.SENDGRID_API_KEY,
-  },
-});
+    api_key: process.env.SENDGRID_API_KEY
+  }
+};
 
-transporter.verify().then(
-  () => console.log("SendGrid transporter ready"),
-  (err) => console.warn("SendGrid transporter error:", err.message)
-);
+const transporter = nodemailer.createTransport(sgTransport(options));
 
 export const sendEmail = async (to, subject, html) => {
   const info = await transporter.sendMail({
