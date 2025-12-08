@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify";
 import { createPortal } from "react-dom";
 import KinaciLogo from "../../assets/kinaciLogo.png";
-import { useNavigate } from "react-router-dom"; // verify sonrası yönləndirmə üçün
 
-function index({ closeModal }) {
+function AuthModal({ closeModal }) {
   const [isLogin, setIsLogin] = useState(true);
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -14,16 +14,9 @@ function index({ closeModal }) {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [phone, setPhone] = useState("");
+  const [forgotEmail, setForgotEmail] = useState("");
 
   const API_URL = import.meta.env.VITE_API_URL;
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, []);
 
   // REGISTER
   const handleRegister = async (e) => {
@@ -32,16 +25,8 @@ function index({ closeModal }) {
       const res = await fetch(`${API_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          fullName,
-          phone,
-          email,
-          password,
-          
-        }),
+        body: JSON.stringify({ fullName, phone, email, password }),
       });
-      console.log({ fullName, email, phone, password });
-
 
       const data = await res.json();
 
@@ -75,12 +60,33 @@ function index({ closeModal }) {
         closeModal();
         window.location.reload();
       } else {
-        // 403 → email təsdiqi lazım olduğunu xəbərdar et
-        if (res.status === 403) {
-          toast.warning(data.message);
-        } else {
-          toast.error(data.message);
-        }
+        if (res.status === 403) toast.warning(data.message);
+        else toast.error(data.message);
+      }
+    } catch (err) {
+      toast.error("Server xətası");
+    }
+  };
+
+  // FORGOT PASSWORD
+  const handleForgotPassword = async () => {
+    if (!forgotEmail) return toast.error("Email daxil edin");
+
+    try {
+      const res = await fetch(`${API_URL}/api/auth/forgot-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: forgotEmail }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        toast.success("Şifrə bərpa linki email-ə göndərildi");
+        setIsForgotPassword(false);
+        setForgotEmail("");
+        setIsLogin(true);
+      } else {
+        toast.error(data.message || "Xəta baş verdi");
       }
     } catch (err) {
       toast.error("Server xətası");
@@ -110,7 +116,7 @@ function index({ closeModal }) {
           </button>
 
           {/* LOGIN */}
-          {isLogin && (
+          {isLogin && !isForgotPassword && (
             <motion.div
               key="login"
               initial={{ opacity: 0, x: 25 }}
@@ -118,14 +124,10 @@ function index({ closeModal }) {
               exit={{ opacity: 0, x: -25 }}
               transition={{ duration: 0.3 }}
             >
-              <img
-                className="w-[158px] h-[86px]"
-                src={KinaciLogo}
-                alt="kinaciLogo"
-              />
+              <img className="w-[158px] h-[86px]" src={KinaciLogo} alt="kinaciLogo" />
               <h2 className="text-2xl font-bold mb-6 mt-6">Hesab</h2>
               <form className="flex flex-col gap-[6px]" onSubmit={handleLogin}>
-                <label className="block">E-Mail</label>
+                <label>E-Mail</label>
                 <input
                   className="input my-2.5 px-2.5 py-4 rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full text-xs h-[50px]"
                   type="email"
@@ -133,14 +135,26 @@ function index({ closeModal }) {
                   value={loginEmail}
                   onChange={(e) => setLoginEmail(e.target.value)}
                 />
-
-                <label className="block">Şifrə</label>
+                <label>Şifrə</label>
                 <input
                   className="input my-2.5 px-2.5 py-4 rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full text-xs h-[50px]"
                   type="password"
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
                 />
+
+                <p className="mt-2 text-right text-sm">
+                  <button
+                    type="button"
+                    className="text-blue-600 hover:underline"
+                    onClick={() => {
+                      setIsForgotPassword(true);
+                      setIsLogin(false);
+                    }}
+                  >
+                    Şifrəni unutmusunuz?
+                  </button>
+                </p>
 
                 <button className="py-3 px-8 w-full font-semibold gap-3 bg-orange-500 text-white hover:bg-orange-600 cursor-pointer rounded-xl">
                   Daxil ol
@@ -160,7 +174,7 @@ function index({ closeModal }) {
           )}
 
           {/* REGISTER */}
-          {!isLogin && (
+          {!isLogin && !isForgotPassword && (
             <motion.div
               key="register"
               initial={{ opacity: 0, x: 25 }}
@@ -168,14 +182,10 @@ function index({ closeModal }) {
               exit={{ opacity: 0, x: -25 }}
               transition={{ duration: 0.3 }}
             >
-              <img
-                className="w-[158px] h-[86px]"
-                src={KinaciLogo}
-                alt="kinaciLogo"
-              />
+              <img className="w-[158px] h-[86px]" src={KinaciLogo} alt="kinaciLogo" />
               <h2 className="text-2xl font-bold mb-6 mt-6">Hesab</h2>
               <form className="flex flex-col gap-[6px]" onSubmit={handleRegister}>
-                <label className="block">Ad & Soyad</label>
+                <label>Ad & Soyad</label>
                 <input
                   className="input my-2.5 px-2.5 py-4 rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full text-xs h-[50px]"
                   type="text"
@@ -183,8 +193,7 @@ function index({ closeModal }) {
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                 />
-
-                <label className="block">Telefon</label>
+                <label>Telefon</label>
                 <input
                   className="input my-2.5 px-2.5 py-4 rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full text-xs h-[50px]"
                   type="text"
@@ -192,8 +201,7 @@ function index({ closeModal }) {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
-
-                <label className="block">E-Mail</label>
+                <label>E-Mail</label>
                 <input
                   className="input my-2.5 px-2.5 py-4 rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full text-xs h-[50px]"
                   type="email"
@@ -201,8 +209,7 @@ function index({ closeModal }) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-
-                <label className="block">Şifrə</label>
+                <label>Şifrə</label>
                 <input
                   className="input my-2.5 px-2.5 py-4 rounded-xl border border-blue-900/25 focus-within:border-blue-900 bg-white w-full text-xs h-[50px]"
                   type="password"
@@ -226,6 +233,52 @@ function index({ closeModal }) {
               </p>
             </motion.div>
           )}
+
+          {/* FORGOT PASSWORD */}
+          {isForgotPassword && (
+            <motion.div
+              key="forgot-password"
+              initial={{ opacity: 0, x: 25 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -25 }}
+              transition={{ duration: 0.3 }}
+            >
+              <h2 className="text-2xl font-bold mb-6 mt-6">Şifrəni bərpa et</h2>
+              <form
+                className="flex flex-col gap-4"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleForgotPassword();
+                }}
+              >
+                <label>Emailinizi daxil edin</label>
+                <input
+                  type="email"
+                  placeholder="Qeydiyyatdan keçdiyiniz email"
+                  value={forgotEmail}
+                  onChange={(e) => setForgotEmail(e.target.value)}
+                  className="input px-2.5 py-4 rounded-xl border border-blue-900/25 focus-within:border-blue-900 w-full text-xs h-[50px]"
+                />
+
+                <button
+                  type="submit"
+                  className="py-3 px-8 w-full font-semibold gap-3 bg-blue-500 text-white hover:bg-blue-600 cursor-pointer rounded-xl"
+                >
+                  Şifrəni bərpa et
+                </button>
+              </form>
+
+              <p className="mt-4 text-sm text-center">
+                Hesabınıza giriş etmək istəyirsiniz?
+                <button
+                  className="text-orange-600 font-semibold ml-1 cursor-pointer"
+                  onClick={() => setIsLogin(true)}
+                >
+                  Daxil ol
+                </button>
+              </p>
+            </motion.div>
+          )}
         </motion.div>
       </motion.div>
     </AnimatePresence>,
@@ -233,4 +286,4 @@ function index({ closeModal }) {
   );
 }
 
-export default index;
+export default AuthModal;

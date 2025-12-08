@@ -27,6 +27,7 @@ import AdminInquiries from "../admin/Inquiries";
 import NewsDetail from "../pages/newsCardDetail";
 import AdminComments from "../admin/comments";
 import VerifyPage from "../pages/verifyPage/VerifyPage";
+import ResetPasswordPage from "../pages/ResetPasswordPage";
 export const routers = createBrowserRouter([
   {
     path: "/",
@@ -112,6 +113,10 @@ export const routers = createBrowserRouter([
       {
         path: "/verify/:token",
         element: <VerifyPage />,
+      },
+      {
+        path: "/reset-password/:token",
+        element: <ResetPasswordPage />,
       },
     ],
   },
