@@ -3,6 +3,9 @@ import cors from "cors";
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
+import commentRoutes from "./routes/comment.js";
+import contactRoutes from "./routes/contact.js";
+import inquiryRoutes from "./routes/inquiry.js";
 import dotenv from "dotenv";
 dotenv.config();
 console.log("SENDGRID KEY:", process.env.SENDGRID_API_KEY);
@@ -14,6 +17,10 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/comments", commentRoutes);
+app.use("/api/contacts", contactRoutes);
+app.use("/api/inquiries", inquiryRoutes);
+
 
 mongoose
   .connect(process.env.DB_URL)

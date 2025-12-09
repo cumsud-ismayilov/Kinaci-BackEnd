@@ -42,4 +42,24 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+
+// comments.js
+router.put("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { text, author } = req.body;
+
+    const updatedComment = await Comment.findByIdAndUpdate(
+      id,
+      { text, author },
+      { new: true }
+    );
+
+    res.json(updatedComment);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
 export default router;

@@ -34,4 +34,30 @@ router.delete("/:id", async (req, res) => {
 });
 
 
+
+// Update inquiry
+// routes/inquiries.js
+router.put("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    // Dəyişdiriləcək sahələr
+    const { name, email, phone, message } = req.body;
+
+    const updated = await Inquiry.findByIdAndUpdate(
+      id,
+      { name, email, phone, message },
+      { new: true } // yenilənmiş sənədi qaytarır
+    );
+
+    if (!updated) return res.status(404).json({ message: "Sorğu tapılmadı" });
+
+    res.status(200).json(updated);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Sorğunu yeniləyərkən xəta baş verdi", error });
+  }
+});
+
+
+
 export default router;

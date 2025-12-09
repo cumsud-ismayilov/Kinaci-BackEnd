@@ -6,8 +6,10 @@ import axios from "axios";
 
 export default function Users() {
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [editUser, setEditUser] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -15,8 +17,13 @@ export default function Users() {
         const res = await axios.get(
           `${import.meta.env.VITE_API_URL}/api/users`
         );
-        if (Array.isArray(res.data)) setData(res.data);
-        else setData([]);
+        if (Array.isArray(res.data)) {
+          setData(res.data);
+          setFilteredData(res.data);
+        } else {
+          setData([]);
+          setFilteredData([]);
+        }
       } catch (err) {
         console.error(err);
         toast.error("İstifadəçiləri gətirmək mümkün olmadı");
@@ -25,12 +32,31 @@ export default function Users() {
     fetchUsers();
   }, []);
 
+  // Search funksiyası
+  useEffect(() => {
+    if (!search) {
+      setFilteredData(data);
+    } else {
+      const lower = search.toLowerCase();
+      setFilteredData(
+        data.filter(
+          (u) =>
+            u.fullName.toLowerCase().includes(lower) ||
+            u.email.toLowerCase().includes(lower) ||
+            u.role.toLowerCase().includes(lower)
+        )
+      );
+    }
+  }, [search, data]);
+
   const deleteUser = async (id) => {
     if (!window.confirm("Bu istifadəçini silmək istədiyinizə əminsiniz?"))
       return;
     try {
       await axios.delete(`${import.meta.env.VITE_API_URL}/api/users/${id}`);
-      setData(data.filter((u) => u._id !== id));
+      const updatedData = data.filter((u) => u._id !== id);
+      setData(updatedData);
+      setFilteredData(updatedData);
       toast.success("İstifadəçi uğurla silindi");
     } catch (err) {
       console.error(err);
@@ -46,6 +72,7 @@ export default function Users() {
   const saveChanges = async () => {
     try {
       const { _id, fullName, email, phone, role } = editUser;
+
       const res = await axios.put(
         `${import.meta.env.VITE_API_URL}/api/users/${_id}`,
         {
@@ -55,7 +82,10 @@ export default function Users() {
           role,
         }
       );
-      setData(data.map((u) => (u._id === _id ? res.data : u)));
+
+      const updatedData = data.map((u) => (u._id === _id ? res.data : u));
+      setData(updatedData);
+      setFilteredData(updatedData);
       toast.success("İstifadəçi uğurla yeniləndi");
       setModalOpen(false);
     } catch (err) {
@@ -67,6 +97,17 @@ export default function Users() {
   return (
     <div className="text-gray-900 dark:text-gray-100">
       <h1 className="text-2xl font-semibold mb-5">Users</h1>
+
+      {/* Search input */}
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Axtar..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full md:w-1/3 p-2 border rounded"
+        />
+      </div>
 
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white dark:bg-gray-800 shadow rounded">
@@ -81,8 +122,8 @@ export default function Users() {
           </thead>
 
           <tbody>
-            {Array.isArray(data) && data.length > 0 ? (
-              data.map((u) => (
+            {Array.isArray(filteredData) && filteredData.length > 0 ? (
+              filteredData.map((u) => (
                 <tr
                   key={u._id}
                   className="border-b border-gray-300 dark:border-gray-600"
@@ -114,7 +155,7 @@ export default function Users() {
         </table>
       </div>
 
-      {/* Simple Modal */}
+      {/* Modal */}
       {modalOpen && editUser && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm z-50">
           <div className="bg-white dark:bg-gray-800 p-6 rounded shadow-lg w-96">
