@@ -28,6 +28,8 @@ import NewsDetail from "../pages/newsCardDetail";
 import AdminComments from "../admin/comments";
 import VerifyPage from "../pages/verifyPage/VerifyPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
+import AdminLogin from "../admin/AdminLogin";
+import AdminProtectedRoute from "../admin/AdminProtectedRoute";
 export const routers = createBrowserRouter([
   {
     path: "/",
@@ -121,18 +123,25 @@ export const routers = createBrowserRouter([
     ],
   },
   {
+    path: "/admin/login",
+    element: <AdminLogin />,
+  },
+  {
     path: "/admin",
-    element: <AdminLayout />,
+    element: <AdminProtectedRoute />,
     children: [
-      { index: true, element: <Dashboard /> },
-      { path: "users", element: <Users /> },
       {
-        path: "properties",
-        element: <Properties />,
+        path: "",
+        element: <AdminLayout />,
+        children: [
+          { index: true, element: <Dashboard /> },
+          { path: "users", element: <Users /> },
+          { path: "properties", element: <Properties /> },
+          { path: "contacts", element: <AdminContacts /> },
+          { path: "comments", element: <AdminComments /> },
+          { path: "inquiries", element: <AdminInquiries /> },
+        ],
       },
-      { path: "contacts", element: <AdminContacts /> },
-      { path: "comments", element: <AdminComments /> },
-      { path: "inquiries", element: <AdminInquiries /> },
     ],
   },
 ]);

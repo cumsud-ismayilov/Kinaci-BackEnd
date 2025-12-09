@@ -106,6 +106,7 @@ router.post("/login", async (req, res) => {
         name: user.fullName,
         email: user.email,
         phone: user.phone,
+        role: user.role,
       },
     });
   } catch (err) {
