@@ -6,6 +6,8 @@ import userRoutes from "./routes/users.js";
 import commentRoutes from "./routes/comment.js";
 import contactRoutes from "./routes/contact.js";
 import inquiryRoutes from "./routes/inquiry.js";
+import productRoutes from "./routes/products.js";
+import newsRoutes from "./routes/news.js";
 import dotenv from "dotenv";
 dotenv.config();
 console.log("SENDGRID KEY:", process.env.SENDGRID_API_KEY);
@@ -20,6 +22,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/contacts", contactRoutes);
 app.use("/api/inquiries", inquiryRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/news", newsRoutes);
 
 
 mongoose
