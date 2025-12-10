@@ -18,6 +18,9 @@ import { toast } from "react-toastify";
 import BackGroundSec from "../../components/backgroundSec";
 import SearchFilter from "../../components/searchFilter/searchFilter";
 import ProductInquiryForm from "./ProductInquiryForm";
+import { formatAZDateSlash } from "../../utils/formatDate";
+
+
 
 function ProductCardDetail() {
   const { id } = useParams();
@@ -120,7 +123,7 @@ function ProductCardDetail() {
                       Çatdırılma tarixi
                     </h6>
                     <span className="text-[#052841] text-[13px]">
-                      {singlePro.date}
+                      {formatAZDateSlash(singlePro?.date)}
                     </span>
                   </div>
                 </div>

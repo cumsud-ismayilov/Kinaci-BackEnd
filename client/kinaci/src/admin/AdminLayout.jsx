@@ -20,6 +20,7 @@ const menuItems = [
   { title: "Contacts", path: "/admin/contacts", icon: "✉️" },
   { title: "Comments", path: "/admin/comments", icon: "💬" },
   { title: "Inquiries", path: "/admin/inquiries", icon: "❓" },
+  { title: "News", path: "/admin/news", icon: "📰" },
 ];
 
 export default function AdminLayout() {

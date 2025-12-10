@@ -24,6 +24,7 @@ import Users from "../admin/Users";
 import Properties from "../admin/Properties";
 import AdminContacts from "../admin/contacts";
 import AdminInquiries from "../admin/Inquiries";
+import AdminNews from "../admin/News";
 import NewsDetail from "../pages/newsCardDetail";
 import AdminComments from "../admin/comments";
 import VerifyPage from "../pages/verifyPage/VerifyPage";
@@ -140,6 +141,7 @@ export const routers = createBrowserRouter([
           { path: "contacts", element: <AdminContacts /> },
           { path: "comments", element: <AdminComments /> },
           { path: "inquiries", element: <AdminInquiries /> },
+          { path: "news", element: <AdminNews /> },
         ],
       },
     ],

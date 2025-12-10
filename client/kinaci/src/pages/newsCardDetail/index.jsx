@@ -114,7 +114,7 @@ function NewsDetail() {
           </span>
           <span>Lüks Ev Villa</span>
           <span>
-            {singlePro.newsMonth} {singlePro.newsDay},{singlePro.newsYear}{" "}
+            {singlePro.newsMonth} {singlePro.newsDay} , {singlePro.newsYear}{" "}
             {singlePro.newsTime}
           </span>
         </p>

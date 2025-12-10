@@ -2,7 +2,7 @@ import { api } from "../api";
 
 export const getAllCompanies = async () => {
 
-  const res = await api.get("/products");
+  const res = await api.get("/api/products");
   if (!res.data) {
     throw new Error("Get All Companies fetch Error");
   }
@@ -12,7 +12,7 @@ export const getAllCompanies = async () => {
 
 export const getAllNews = async () => {
 
-  const res = await api.get("/news");
+  const res = await api.get("/api/news");
   if (!res.data) {
     throw new Error("Get All News fetch Error");
   }
@@ -22,7 +22,7 @@ export const getAllNews = async () => {
 
 export const getNewsById = async (id) => {
   try {
-    const res = await api.get(`/news/${id}`); 
+    const res = await api.get(`/api/news/${id}`); 
     if (!res.data) {
       throw new Error("News fetch error");
     }
@@ -39,7 +39,7 @@ export const getNewsById = async (id) => {
 
 export const getProductById = async (id) => {
   try {
-    const res = await api.get(`/products/${id}`); 
+    const res = await api.get(`/api/products/${id}`); 
     if (!res.data) {
       throw new Error("Product fetch error");
     }
