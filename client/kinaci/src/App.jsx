@@ -6,6 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { BackToTopMotion } from "./components/backToTopMotion/backToTopMotion";
 import Loader from "./components/loader";
 import { useEffect, useState } from "react";
+import MissingPhotosModal from "./components/missingPhotosModal/index";
+
 
 
 function App() {
@@ -23,6 +25,9 @@ function App() {
           <RouterProvider router={routers} />
           <ToastContainer position="top-right" autoClose={2000} />
           <BackToTopMotion />
+
+
+          <MissingPhotosModal />
         </>
       )}
     </FavoriteProvider>
